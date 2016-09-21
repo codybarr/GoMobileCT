@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router';
 
 export default class Layout extends React.Component {
 
@@ -15,16 +16,16 @@ export default class Layout extends React.Component {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">GoMobileCT</a>
+                    <Link class="navbar-brand" to='/'>GoMobileCT</Link>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Map / Locations</a>
+                            <Link to='locations'>Map / Locations</Link>
                         </li>
                         <li>
-                            <a href="#">Calendar</a>
+                            <Link to='calendar'>Calendar</Link>
                         </li>
                     </ul>
                 </div>
@@ -41,6 +42,8 @@ export default class Layout extends React.Component {
                         <li>Bootstrap v3.3.7</li>
                         <li>jQuery v1.11.1</li>
                     </ul>
+
+                    {this.props.children}
                 </div>
             </div>
 

@@ -4,7 +4,7 @@
   "description": "Simple Web App that shows the dates and locations of the mobile unit for Caring Families.",
   "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --content-base public --inline --hot"
   },
   "author": "",
   "license": "MIT",
@@ -30,10 +30,8 @@
     "gulp-uglify": "^2.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
-  },
-  "scripts": {
-    "dev": "webpack-dev-server --content-base public --inline --hot"
   }
 }
