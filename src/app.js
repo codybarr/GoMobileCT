@@ -10,7 +10,7 @@ var parser = require('body-parser');
 // seed data - gets recreated each time the server is restarted
 // require('./seed');
 
-app.use('/', express.static('public'));
+app.use(express.static('public'));
 app.use(parser.json());
 
 // app.use('/api', apiRouter);
