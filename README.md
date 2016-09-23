@@ -9,9 +9,9 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 ## Structure
 
 - public (files to deploy site)
-- src
-  - app.js (express api)
-  - js (all source javascript files, pretranspiled)
+- server
+  - app.js (express entry point)
+- react (all source javascript files, pretranspiled)
 
 ## Starting the webpack dev server
 
