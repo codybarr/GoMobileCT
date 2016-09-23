@@ -14,9 +14,9 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Layout}>
       <IndexRoute component={Home}></IndexRoute>
-      <Route path="locations" name="locations" component={Locations}></Route>
-      <Route path="calendar" name="calendar" component={Calendar}></Route>
-      <Route path="add/location" name="add-location" component={AddLocation}></Route>
+      <Route path="/locations" name="locations" component={Locations}></Route>
+      <Route path="/calendar" name="calendar" component={Calendar}></Route>
+      <Route path="/add/location" name="add-location" component={AddLocation}></Route>
     </Route>
   </Router>,
   document.getElementById('app'));

@@ -32,7 +32,7 @@ export default class Navbar extends React.Component {
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                          <li><Link to='add/location'>Location</Link></li>
+                          <li><Link to='/add/location'>Location</Link></li>
                         </ul>
                       </li>
                   </ul>
