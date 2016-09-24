@@ -19,7 +19,7 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 
 (runs at http://localhost:8080)
 
-## Starting the express server
+## Transpile assets then run the express server
 
 `gulp`
 
