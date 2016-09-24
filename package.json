@@ -4,7 +4,8 @@
   "description": "Simple Web App that shows the dates and locations of the mobile unit for Caring Families.",
   "main": "server/app.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base public --inline --hot --progress --colors"
+    "dev": "webpack-dev-server --content-base public --inline --hot --progress --colors",
+    "start": "node server/app.js"
   },
   "author": "",
   "license": "MIT",
