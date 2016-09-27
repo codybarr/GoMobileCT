@@ -4,7 +4,7 @@ var express = require('express');
 const path = require('path');
 var app = express();
 var parser = require('body-parser');
-var apiRouter = require('./api/index.js');
+var apiRouter = require('./api/api.js');
 
 // database
 var database = require('./database');
