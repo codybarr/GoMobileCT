@@ -3,7 +3,7 @@ var nodemon = require('gulp-nodemon');
 var shell = require('gulp-shell');
 
 gulp.task('webpack', shell.task([
-  'webpack --progress --colors'
+  'webpack --watch --progress --colors'
 ]));
 
 gulp.task('server', function (done) {
@@ -14,6 +14,6 @@ gulp.task('server', function (done) {
   done();
 });
 
-gulp.task('default', gulp.series('webpack', 'server', function(done) {
+gulp.task('default', gulp.series(/*'webpack', */'server', function(done) {
   done();
 }));

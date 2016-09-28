@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Map from '../components/Map';
+import MapContainer from '../components/MapContainer';
 
 export default class Locations extends React.Component {
 
@@ -8,7 +8,7 @@ export default class Locations extends React.Component {
     return (
       <div class="locations">
         <h2>Locations</h2>
-        <Map />
+        <MapContainer />
       </div>
     );
   }

@@ -1,11 +1,14 @@
 import React from 'react';
 
 export default class Map extends React.Component {
+  constructor() {
+    super();
+  }
 
   render() {
     return (
-      <div class="map">
-        <h3>Map View:</h3>
+      <div ref="map">
+        Loading Map...
       </div>
     );
   }
