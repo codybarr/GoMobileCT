@@ -5,6 +5,8 @@ import React from 'react';
 export default class MapContainer extends React.Component {
   constructor() {
     super();
+
+    // TODO: Query this data from the api
     this.state = {
       locations: [
         {name: 'Empire State Building', location: {lat: 40.748441, lng: -73.985664}},
@@ -12,10 +14,6 @@ export default class MapContainer extends React.Component {
         {name: 'Central Park', location: {lat: 40.771133, lng: -73.974187}}
       ]
     };
-  }
-
-  addMarker(location) {
-
   }
 
   componentDidMount() {
@@ -27,8 +25,21 @@ export default class MapContainer extends React.Component {
 
     this.map = new google.maps.Map(this.refs.map, {
       center: FIRST_LOCATION_POSITION,
-      zoom: 16
+      zoom: 11
     });
+
+    var _this = this; // TODO: Ricardo can we come up with a better solution than this?
+
+    function addMarker(location, index, array) {
+      var { location } = location;
+      console.log(location);
+      new google.maps.Marker({
+        position: location,
+        map: _this.map
+      });
+    }
+
+    this.state.locations.forEach(addMarker);
   }
 
   render() {
