@@ -7,39 +7,61 @@ export default class MapContainer extends React.Component {
     super();
 
     // TODO: Query this data from the api
-    this.state = {
-      locations: [
-        {name: 'Empire State Building', location: {lat: 40.748441, lng: -73.985664}},
-        {name: 'Statue of Liberty', location: {lat: 40.689249, lng: -74.044500}},
-        {name: 'Central Park', location: {lat: 40.771133, lng: -73.974187}}
-      ]
-    };
+    // this.state = {
+    //   locations: [
+    //     { name: 'Empire State Building', location: { lat: 40.748441, lng: -73.985664 } }
+    //   ]
+    // };
   }
 
   componentDidMount() {
-    const FIRST_LOCATION_POSITION = {
-      lat: this.state.locations[0].location.lat,
-      lng: this.state.locations[0].location.lng
-    }
-    console.log(FIRST_LOCATION_POSITION);
+    // const FIRST_LOCATION_POSITION = {
+    //   lat: this.state.locations[0].location.lat,
+    //   lng: this.state.locations[0].location.lng
+    // }
+    // console.log(FIRST_LOCATION_POSITION);
 
     this.map = new google.maps.Map(this.refs.map, {
-      center: FIRST_LOCATION_POSITION,
+      center: { lat: 40.748441, lng: -73.985664 },
       zoom: 11
     });
 
-    var _this = this; // TODO: Ricardo can we come up with a better solution than this?
+    //google.maps.event.addListenerOnce(this.map, 'tilesloaded', ::this._updateLocations);
+    $.ajax({
+      method: 'GET',
+      url: 'http://localhost:3000/api/locations',
+      success: (data) => {
+        // this.state.locations = this.state.locations || [];
+        // var locations = data.locations.filter((location) => {
+        //   return this.state.locations.map((local) => local.name).indexOf(location.name) === -1;
+        // });
 
-    function addMarker(location, index, array) {
-      var { location } = location;
-      console.log(location);
-      new google.maps.Marker({
-        position: location,
-        map: _this.map
-      });
+        this.setState({ locations: data.locations });
+      }
+    });
+
+  }
+
+  _updateLocations() {
+    this.state.locations.forEach(::this._addMarker);
+  }
+
+  _addMarker(location, index, array) {
+    var { location } = location;
+    console.log(location);
+    new google.maps.Marker({
+      position: location,
+      map: this.map
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    var check = [];
+    var check = prevState ? prevState.locations || check : check;
+    if (this.state.locations || this.state.locations !== check) {
+      this.state.locations.forEach(::this._addMarker);
+      console.log("changed state");
     }
-
-    this.state.locations.forEach(addMarker);
   }
 
   render() {
@@ -48,7 +70,7 @@ export default class MapContainer extends React.Component {
     }
 
     return (
-      <div style={{width: '100%'}}>
+      <div style={{ width: '100%' }}>
         <div ref="map" style={style} ref="map">
           Loading Map
         </div>
