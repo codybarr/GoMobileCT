@@ -19,8 +19,10 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 
 (runs at http://localhost:8080)
 
-## Transpile assets then run the express server
+## Testing Express, Webpack watch and Mongo
 
-`gulp`
+- Open a terminal tab for Mongo: `mongod`
+- Open another terminal tab for webpack: `gulp webpack`
+- Open a third for the express server: `gulp`
 
 (runs at http://localhost:3000)
