@@ -47,10 +47,9 @@ export default class MapContainer extends React.Component {
   }
 
   _addMarker(location, index, array) {
-    var { location } = location;
-    console.log(location);
+    console.log(location.latlng);
     new google.maps.Marker({
-      position: location,
+      position: location.latlng,
       map: this.map
     });
   }
