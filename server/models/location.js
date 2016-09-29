@@ -9,6 +9,7 @@ var locationSchema = new mongoose.Schema({
     lat: Number,
     lng: Number
   },
+  description: String,
   updated: { type: Date, default: Date.now }
 });
 

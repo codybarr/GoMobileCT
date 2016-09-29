@@ -3,9 +3,15 @@
 var Location = require('./models/location');
 
 var locations = [
-  {name: 'Empire State Building', latlng: {lat: 40.748441, lng: -73.985664}},
-  {name: 'Statue of Liberty', latlng: {lat: 40.689249, lng: -74.044500}},
-  {name: 'Central Park', latlng: {lat: 40.771133, lng: -73.974187}}
+  {name: 'Empire State Building',
+    latlng: {lat: 40.748441, lng: -73.985664},
+    description: 'Tallest building in the world! But not really...'},
+  {name: 'Statue of Liberty',
+    latlng: {lat: 40.689249, lng: -74.044500},
+    description: 'A very tall lady...with a torch...'},
+  {name: 'Central Park',
+    latlng: {lat: 40.771133, lng: -73.974187},
+    description: 'Largest Park ever! I guess...'}
 ];
 
 // removes all entries, model was changed recently (location.location to location.latlng)
