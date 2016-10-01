@@ -16,10 +16,14 @@ export default class InfoWindow extends React.Component {
     }
 
     return (
-      <div class="info-window">
-        <h2>{name || 'No Location Selected'}</h2>
-        {location}
-        <p>{description}</p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{name || 'No Location Selected'}</h3>
+        </div>
+        <div class="panel-body">
+          {location}
+          <p>{description}</p>
+        </div>
       </div>
     );
   }

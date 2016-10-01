@@ -74,8 +74,8 @@ export default class AddLocation extends React.Component {
       data: JSON.stringify(newLocation),
       success: (data) => {
         console.log(data);
-        // Route the user back to the locations page (to see the new marker)
-        browserHistory.push('/locations');
+        // Route the user back to the admin locations page
+        browserHistory.push('/admin/locations');
       }
     });
   }
