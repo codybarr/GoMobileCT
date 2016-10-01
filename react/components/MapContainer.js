@@ -33,7 +33,7 @@ export default class MapContainer extends React.Component {
     //google.maps.event.addListenerOnce(this.map, 'tilesloaded', ::this._updateLocations);
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:3000/api/locations',
+      url: '/api/locations',
       success: (data) => {
         // this.state.locations = this.state.locations || [];
         // var locations = data.locations.filter((location) => {
@@ -82,8 +82,8 @@ export default class MapContainer extends React.Component {
           <InfoWindow info={this.state.info} />
         </div>
         <div class="col-md-8">
-          <div ref="map" style={style} ref="map">
-            Loading Map
+          <div ref="map" style={style}>
+            Loading Map...
           </div>
         </div>
       </div>

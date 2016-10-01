@@ -16,17 +16,15 @@ apiRouter.get('/locations', function(req, res) {
 
 // TODO: Add POST route to create new entries
 
-/*
-apiRouter.post('/todos', function(req, res) {
-  var todo = req.body;
-  Todo.create(todo, function(err, todo) {
+apiRouter.post('/locations', function(req, res) {
+  var location = req.body;
+  Location.create(location, function(err, location) {
     if (err) {
       return res.status(500).json({err: err.message});
     }
-    res.json({todo: todo, message: 'Todo created'});
+    res.json({location: location, message: 'Location created!'});
   });
 });
-*/
 
 // TODO: Add PUT route to update existing entries
 
