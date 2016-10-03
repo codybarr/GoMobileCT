@@ -7,12 +7,11 @@ export default class InfoWindow extends React.Component {
   }
 
   render() {
-    const { name, latlng, description } = this.props.info;
-    const { lat , lng } = latlng || '';
+    const { name, address, description } = this.props.info;
 
-    let location;
-    if (lat && lng) {
-      location = <p>Latitude: {lat}, Longitude: {lng}</p>;
+    let addressName;
+    if (address) {
+      addressName = <p><strong>Address:</strong> {address}</p>;
     }
 
     return (
@@ -21,7 +20,7 @@ export default class InfoWindow extends React.Component {
           <h3 class="panel-title">{name || 'No Location Selected'}</h3>
         </div>
         <div class="panel-body">
-          {location}
+          {addressName}
           <p>{description}</p>
         </div>
       </div>

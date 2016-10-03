@@ -19,16 +19,15 @@ export default class MapContainer extends React.Component {
   }
 
   componentDidMount() {
-    // const FIRST_LOCATION_POSITION = {
-    //   lat: this.state.locations[0].location.lat,
-    //   lng: this.state.locations[0].location.lng
-    // }
-    // console.log(FIRST_LOCATION_POSITION);
 
+    // Creates the map
     this.map = new google.maps.Map(this.refs.map, {
-      center: { lat: 40.748441, lng: -73.985664 },
+      center: { lat: 41.5019391, lng: -73.0370646 },
       zoom: 11
     });
+
+    // Repositions the map to fit all of Connecticut
+    this.map.fitBounds(new google.maps.LatLngBounds({lat: 41.004192, lng: -73.733368}, {lat: 42.014037, lng: -71.777802}));
 
     //google.maps.event.addListenerOnce(this.map, 'tilesloaded', ::this._updateLocations);
     $.ajax({
@@ -78,13 +77,13 @@ export default class MapContainer extends React.Component {
 
     return (
       <div class="row">
-        <div class="col-md-4">
-          <InfoWindow info={this.state.info} />
-        </div>
         <div class="col-md-8">
           <div ref="map" style={style}>
             Loading Map...
           </div>
+        </div>
+        <div class="col-md-4">
+          <InfoWindow info={this.state.info} />
         </div>
       </div>
     );

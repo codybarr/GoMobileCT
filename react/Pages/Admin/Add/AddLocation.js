@@ -70,7 +70,7 @@ export default class AddLocation extends React.Component {
       async: true,
       method: 'POST',
       contentType: "application/json",
-      url: '/api/locations',
+      url: '/api/location/add',
       data: JSON.stringify(newLocation),
       success: (data) => {
         console.log(data);
@@ -121,7 +121,7 @@ export default class AddLocation extends React.Component {
           </div>
 
           <div class="form-group">
-            <div class="col-sm-12">
+            <div class="col-sm-10 col-sm-offset-2">
               <button type="submit" class="btn btn-primary">Add Location</button>
             </div>
           </div>

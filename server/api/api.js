@@ -3,6 +3,8 @@ var Location = require('../models/location');
 
 var apiRouter = express.Router();
 
+// GET route to retrieve existing locations
+
 apiRouter.get('/locations', function(req, res) {
   Location.find({}, function(err, locations) {
     if (err) {
@@ -11,12 +13,24 @@ apiRouter.get('/locations', function(req, res) {
       res.json({locations: locations});
     }
   });
-
 });
 
-// TODO: Add POST route to create new entries
+// GET route to retrieve a single location
 
-apiRouter.post('/locations', function(req, res) {
+apiRouter.get('/location/:id', function(req, res) {
+  console.log(req.params);
+  Location.findById(req.params.id, function(err, location) {
+    if (err) {
+      return res.status(500).json({message: err.message});
+    } else {
+      res.json({location: location});
+    }
+  });
+});
+
+// POST route to create new entries
+
+apiRouter.post('/location/add', function(req, res) {
   var location = req.body;
   Location.create(location, function(err, location) {
     if (err) {
@@ -26,24 +40,31 @@ apiRouter.post('/locations', function(req, res) {
   });
 });
 
-// TODO: Add PUT route to update existing entries
+// PUT route to update existing entries
 
-/*
-apiRouter.put('/todos/:id', function(req, res) {
+apiRouter.put('/location/edit/:id', function(req, res) {
   var id = req.params.id;
-  var todo = req.body;
-  debugger;
+  var location = req.body;
 
-  if (todo && todo._id !== id) {
-    return res.status(500).json({err: "Ids don't match"});
-  }
-  Todo.findByIdAndUpdate(id, todo, {new: true}, function(err, todo) {
+  // {new: true} returns the updated document rather than the original one
+  Location.findByIdAndUpdate(id, location, {new: true}, function(err, location) {
     if (err) {
       return res.status(500).json({err: err.message});
     }
-    res.json({todo: todo, message: 'Todo updated'});
+    res.json({location: location, message: 'Location updated'});
   });
 });
-*/
+
+
+// DELETE route to delete entries
+
+apiRouter.delete('/location/:id', function(req, res) {
+  Location.findByIdAndRemove(req.params.id, function(err, location) {
+    if (err) {
+      return res.status(500).json({err: err.message});
+    }
+    res.json({location: location, message: 'Location removed!'});
+  });
+});
 
 module.exports = apiRouter;
