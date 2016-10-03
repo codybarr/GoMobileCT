@@ -61,8 +61,6 @@ export default class AddLocation extends React.Component {
       description: this.refs.description.value
     };
 
-    console.log('newLocation:');
-    console.log(newLocation);
 
     // When form is submitted:
     // Post the data to the database
@@ -73,7 +71,6 @@ export default class AddLocation extends React.Component {
       url: '/api/location/add',
       data: JSON.stringify(newLocation),
       success: (data) => {
-        console.log(data);
         // Route the user back to the admin locations page
         browserHistory.push('/admin/locations');
       }

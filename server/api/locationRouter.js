@@ -1,11 +1,11 @@
 var express = require('express');
 var Location = require('../models/location');
 
-var apiRouter = express.Router();
+var locationRouter = express.Router();
 
 // GET route to retrieve existing locations
 
-apiRouter.get('/locations', function(req, res) {
+locationRouter.get('/locations', function(req, res) {
   Location.find({}, function(err, locations) {
     if (err) {
       return res.status(500).json({message: err.message});
@@ -17,8 +17,7 @@ apiRouter.get('/locations', function(req, res) {
 
 // GET route to retrieve a single location
 
-apiRouter.get('/location/:id', function(req, res) {
-  console.log(req.params);
+locationRouter.get('/location/:id', function(req, res) {
   Location.findById(req.params.id, function(err, location) {
     if (err) {
       return res.status(500).json({message: err.message});
@@ -30,7 +29,7 @@ apiRouter.get('/location/:id', function(req, res) {
 
 // POST route to create new entries
 
-apiRouter.post('/location/add', function(req, res) {
+locationRouter.post('/location/add', function(req, res) {
   var location = req.body;
   Location.create(location, function(err, location) {
     if (err) {
@@ -42,7 +41,7 @@ apiRouter.post('/location/add', function(req, res) {
 
 // PUT route to update existing entries
 
-apiRouter.put('/location/edit/:id', function(req, res) {
+locationRouter.put('/location/edit/:id', function(req, res) {
   var id = req.params.id;
   var location = req.body;
 
@@ -58,7 +57,7 @@ apiRouter.put('/location/edit/:id', function(req, res) {
 
 // DELETE route to delete entries
 
-apiRouter.delete('/location/:id', function(req, res) {
+locationRouter.delete('/location/:id', function(req, res) {
   Location.findByIdAndRemove(req.params.id, function(err, location) {
     if (err) {
       return res.status(500).json({err: err.message});
@@ -67,4 +66,4 @@ apiRouter.delete('/location/:id', function(req, res) {
   });
 });
 
-module.exports = apiRouter;
+module.exports = locationRouter;

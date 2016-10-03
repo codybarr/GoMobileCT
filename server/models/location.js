@@ -14,6 +14,6 @@ var locationSchema = new mongoose.Schema({
   updated: { type: Date, default: Date.now }
 });
 
-var model = mongoose.model('Location', locationSchema);
+var Location = mongoose.model('Location', locationSchema);
 
-module.exports = model;
+module.exports = Location;

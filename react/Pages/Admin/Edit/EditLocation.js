@@ -118,7 +118,6 @@ export default class EditLocation extends React.Component {
       url: `/api/location/edit/${this.state.location._id}`,
       data: JSON.stringify(newLocation),
       success: (data) => {
-        console.log(data);
         // Route the user back to the admin locations page
         browserHistory.push('/admin/locations');
       }

@@ -66,7 +66,6 @@ export default class MapContainer extends React.Component {
     if (this.state.locations || this.state.locations !== check) {
 
       this.state.locations.forEach(::this._addMarker);
-      console.log("changed state");
     }
   }
 
