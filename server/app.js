@@ -4,18 +4,22 @@ var express = require('express');
 const path = require('path');
 var app = express();
 var parser = require('body-parser');
-var locationRouter = require('./api/locationRouter.js');
+
+var locationRouter = require('./api/locationRouter');
+var eventRouter = require('./api/eventRouter');
 
 // database
 var database = require('./database');
 // seed data
 require('./seed');
 
+// Static Files
 app.use(express.static('public'));
 app.use(parser.json());
 
-// api Router
+// API Routers
 app.use('/api', locationRouter);
+app.use('/api', eventRouter);
 
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).

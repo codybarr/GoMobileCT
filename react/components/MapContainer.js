@@ -56,7 +56,22 @@ export default class MapContainer extends React.Component {
       map: this.map
     });
     marker.addListener('click', () => {
-      this.setState({ info: location });
+      this._lookupEvents(location);
+    });
+  }
+
+  _lookupEvents(location) {
+    $.ajax({
+      method: 'GET',
+      url: `/api/events/${location._id}`,
+      success: (data) => {
+        // this.state.locations = this.state.locations || [];
+        // var locations = data.locations.filter((location) => {
+        //   return this.state.locations.map((local) => local.name).indexOf(location.name) === -1;
+        // });
+
+        this.setState({ info: location, events: data.events });
+      }
     });
   }
 
@@ -82,7 +97,7 @@ export default class MapContainer extends React.Component {
           </div>
         </div>
         <div class="col-md-4">
-          <InfoWindow info={this.state.info} />
+          <InfoWindow info={this.state.info} events={this.state.events}/>
         </div>
       </div>
     );

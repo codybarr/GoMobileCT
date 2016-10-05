@@ -6,7 +6,9 @@ var locationRouter = express.Router();
 // GET route to retrieve existing locations
 
 locationRouter.get('/locations', function(req, res) {
-  Location.find({}, function(err, locations) {
+  Location.find({})
+  .populate('events')
+  .exec(function(err, locations) {
     if (err) {
       return res.status(500).json({message: err.message});
     } else {
