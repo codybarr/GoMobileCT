@@ -53,6 +53,7 @@ export default class MapContainer extends React.Component {
     var marker = new google.maps.Marker({
       position: location.latlng,
       title: location.name,
+      animation: google.maps.Animation.BOUNCE,
       map: this.map
     });
     marker.addListener('click', () => {

@@ -90,13 +90,13 @@ export default class AddLocation extends React.Component {
           <div class="form-group">
             <label for="locationName" class="col-sm-2 control-label">Location Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="locationName" placeholder="Location Name" ref="locationName"/>
+              <input type="text" class="form-control" id="locationName" placeholder="Women's Center of Eastern Connecticut" ref="locationName"/>
             </div>
           </div>
           <div class="form-group">
             <label for="geolocation" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-8">
-              <input type="search" ref="address" class="form-control" id="geolocation" placeholder="Address" />
+              <input type="search" ref="address" class="form-control" id="geolocation" placeholder="968 Main St. Willimantic, CT" />
               <input type="hidden" ref="lat" />
               <input type="hidden" ref="lng" />
             </div>

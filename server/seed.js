@@ -6,6 +6,7 @@ var moment = require('moment');
 
 // removes all Locations and Events
 
+
 Location.remove({}, function() {
   console.log('Locations removed.');
 });
@@ -36,8 +37,8 @@ locations.forEach(function(location, index) {
         console.log('Location "%s" was created!', newLocation._id);
         Event.create({
           location: newLocation._id,
-          startDateTime: moment(Date.now()).format(),
-          endDateTime: moment(Date.now()).add(2, 'hours').format()
+          startDateTime: moment(Date.now()).utc().toISOString(),
+          endDateTime: moment(Date.now()).utc().add(2, 'hours').toISOString()
         }, function(err, newEvent) {
           if (err) {
             console.log(err);

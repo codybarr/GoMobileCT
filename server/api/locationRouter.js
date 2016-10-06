@@ -6,15 +6,29 @@ var locationRouter = express.Router();
 // GET route to retrieve existing locations
 
 locationRouter.get('/locations', function(req, res) {
-  Location.find({})
-  .populate('events')
-  .exec(function(err, locations) {
+  Location.find({}, function(err, locations) {
     if (err) {
       return res.status(500).json({message: err.message});
     } else {
       res.json({locations: locations});
     }
   });
+});
+
+// GET route to retrieve all location names and IDs only
+// TODO: figure out a way to enable the standard location GET route to digest
+// this somehow, using params or adding options to the response body
+
+locationRouter.get('/locations/names', function(req, res) {
+  Location.find({})
+    .select('_id name')
+    .exec(function(err, locations) {
+      if (err) {
+        return res.status(500).json({message: err.message});
+      } else {
+        res.json({locations: locations});
+      }
+    });
 });
 
 // GET route to retrieve a single location

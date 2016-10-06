@@ -5,7 +5,7 @@ export default class Navbar extends React.Component {
 
   render() {
     return (
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container">
 
               <div class="navbar-header">
@@ -36,6 +36,7 @@ export default class Navbar extends React.Component {
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li><Link to='/admin/add/location'>Location</Link></li>
+                          <li><Link to='/admin/add/event'>Event</Link></li>
                         </ul>
                       </li>
                   </ul>

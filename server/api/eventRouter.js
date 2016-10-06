@@ -3,6 +3,20 @@ var Event = require('../models/event');
 
 var eventRouter = express.Router();
 
+// GET route to retrive all existing events
+// populates the location
+eventRouter.get('/events', function(req, res) {
+  Event.find({})
+    .populate('location', 'name')
+    .exec(function(err, events) {
+      if (err) {
+        return res.status(500).json({message: err.message});
+      } else {
+        res.json({events: events});
+      }
+    });
+});
+
 // GET route to retrieve existing events based on a given location
 // with an end date greater than now
 
@@ -33,17 +47,21 @@ eventRouter.get('/events/:locationid', function(req, res) {
 //   });
 // });
 //
-// // POST route to create new entries
-//
-// locationRouter.post('/location/add', function(req, res) {
-//   var location = req.body;
-//   Location.create(location, function(err, location) {
-//     if (err) {
-//       return res.status(500).json({err: err.message});
-//     }
-//     res.json({location: location, message: 'Location created!'});
-//   });
-// });
+
+// POST route to create new entries
+
+eventRouter.post('/event/add', function(req, res) {
+  var event = req.body;
+  console.log(event);
+
+  Event.create(event, function(err, event) {
+    if (err) {
+      return res.status(500).json({err: err.message});
+    }
+    res.json({event: event, message: 'Event created!'});
+  });
+});
+
 //
 // // PUT route to update existing entries
 //
