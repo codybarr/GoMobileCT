@@ -16,6 +16,7 @@ import EditLocation from './Pages/Admin/Edit/EditLocation';
 
 import EventList from './Pages/Admin/EventList';
 import AddEvent from './Pages/Admin/Add/AddEvent';
+import EditEvent from './Pages/Admin/Edit/EditEvent';
 
 
 ReactDOM.render(
@@ -33,6 +34,7 @@ ReactDOM.render(
       <Route path='admin/location/:id' component={EditLocation} />
 
       <Route path='admin/add/event' name='add-event' component={AddEvent} />
+      <Route path='admin/event/:id' component={EditEvent} />
     </Route>
   </Router>,
   document.getElementById('app'));

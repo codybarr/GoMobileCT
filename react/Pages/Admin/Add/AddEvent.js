@@ -38,7 +38,7 @@ export default class AddEvent extends React.Component {
   render() {
     return (
       <div class="addEvent">
-        <EventForm title='Add' submitMethod={::this._handleSubmit}/>
+        <EventForm title='Add' event={{}} submitMethod={::this._handleSubmit}/>
       </div>
     );
   }

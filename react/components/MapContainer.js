@@ -14,7 +14,9 @@ export default class MapContainer extends React.Component {
     //   ]
     // };
     this.state = {
-      info: {}
+      info: {},
+      events: [],
+      locations: []
     };
   }
 
@@ -40,20 +42,21 @@ export default class MapContainer extends React.Component {
         // });
 
         this.setState({ locations: data.locations });
+        this._addMarkers();
       }
     });
 
   }
 
-  _updateLocations() {
+  _addMarkers() {
     this.state.locations.forEach(::this._addMarker);
   }
 
   _addMarker(location, index, array) {
+
     var marker = new google.maps.Marker({
       position: location.latlng,
       title: location.name,
-      animation: google.maps.Animation.BOUNCE,
       map: this.map
     });
     marker.addListener('click', () => {
@@ -66,23 +69,9 @@ export default class MapContainer extends React.Component {
       method: 'GET',
       url: `/api/events/${location._id}`,
       success: (data) => {
-        // this.state.locations = this.state.locations || [];
-        // var locations = data.locations.filter((location) => {
-        //   return this.state.locations.map((local) => local.name).indexOf(location.name) === -1;
-        // });
-
         this.setState({ info: location, events: data.events });
       }
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    var check = [];
-    var check = prevState ? prevState.locations || check : check;
-    if (this.state.locations || this.state.locations !== check) {
-
-      this.state.locations.forEach(::this._addMarker);
-    }
   }
 
   render() {
