@@ -77,16 +77,16 @@ eventRouter.put('/event/edit/:id', function(req, res) {
   });
 });
 
-// // DELETE route to delete entries
-//
-// locationRouter.delete('/location/:id', function(req, res) {
-//   Location.findByIdAndRemove(req.params.id, function(err, location) {
-//     if (err) {
-//       return res.status(500).json({err: err.message});
-//     }
-//     res.json({location: location, message: 'Location removed!'});
-//   });
-// });
-//
+// DELETE route to delete events
+
+eventRouter.delete('/event/:id', function(req, res) {
+  Event.findByIdAndRemove(req.params.id, function(err, event) {
+    if (err) {
+      return res.status(500).json({err: err.message});
+    }
+    res.json({event: event, message: 'Location removed!'});
+  });
+});
+
 
 module.exports = eventRouter;

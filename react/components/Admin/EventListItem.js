@@ -22,7 +22,7 @@ export default class EventListItem extends React.Component {
         <td style={noWrap} class="event-actions">
           <Link to={'/admin/event/' + event._id} class="btn btn-primary btn-xs">Edit</Link>
           &nbsp;
-          {/*<button class="btn btn-danger btn-xs" onClick={::this._handleDelete}>Delete</button>*/}
+          <button class="btn btn-danger btn-xs" onClick={::this._handleDelete}>Delete</button>
         </td>
       </tr>
     );
