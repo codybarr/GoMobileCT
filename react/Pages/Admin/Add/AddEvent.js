@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
 
 import EventForm from '../../../components/Admin/EventForm';
 
@@ -9,7 +10,15 @@ export default class AddEvent extends React.Component {
     super();
 
     this.state = {
-      locations: []
+      locations: [],
+      event: {
+        location: {
+          _id: "",
+          name: ""
+        },
+        startDateTime: moment(Date.now()).format(),
+        endDateTime: moment(Date.now()).add(2, 'hours').format()
+      }
     }
   }
 
@@ -38,7 +47,7 @@ export default class AddEvent extends React.Component {
   render() {
     return (
       <div class="addEvent">
-        <EventForm title='Add' event={{}} submitMethod={::this._handleSubmit}/>
+        <EventForm title='Add' event={this.state.event} submitMethod={::this._handleSubmit}/>
       </div>
     );
   }

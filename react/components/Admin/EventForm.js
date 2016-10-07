@@ -15,6 +15,10 @@ export default class EventForm extends React.Component {
     this._fetchLocations();
   }
 
+  componentDidUpdate() {
+    this._setInitialValues();
+  }
+
   // Fetch Location Names and Ids
   _fetchLocations() {
     $.ajax({
@@ -35,14 +39,18 @@ export default class EventForm extends React.Component {
     });
   }
 
-  render() {
-    const { title, event } = this.props;
-    const locations = this._getLocations();
-
+  _setInitialValues() {
+    const { event } = this.props;
     const dateFormat='YYYY-MM-DD\Thh\:mm';
-    const startDate = moment(event.startDateTime).format(dateFormat);
-    const endDate = moment(event.endDateTime).format(dateFormat);
 
+    this._location.value = event.location._id;
+    this._startDate.value = moment(event.startDateTime).format(dateFormat);
+    this._endDate.value = moment(event.endDateTime).format(dateFormat);
+  }
+
+  render() {
+    const { title } = this.props;
+    const locations = this._getLocations();
 
     return (
       <div class="eventForm">
@@ -52,7 +60,7 @@ export default class EventForm extends React.Component {
           <div class="form-group">
             <label for="locationInput" class="col-sm-2 control-label">Location</label>
             <div class="col-sm-6">
-              <select class="form-control" id="locationInput" defaultValue={event.location._id} ref={(location) => this._location = location}>
+              <select class="form-control" id="locationInput" ref={(location) => this._location = location}>
                 <option value=""> - None - </option>
                 {locations}
               </select>
@@ -62,14 +70,14 @@ export default class EventForm extends React.Component {
           <div class="form-group">
             <label for="startDate" class="col-sm-2 control-label">Start Date</label>
             <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="startDate" placeholder="Start Date" defaultValue={startDate} ref={(startDate) => this._startDate = startDate}/>
+              <input type="datetime-local" class="form-control" id="startDate" placeholder="Start Date" ref={(startDate) => this._startDate = startDate}/>
             </div>
           </div>
 
           <div class="form-group">
             <label for="endDate" class="col-sm-2 control-label">End Date</label>
             <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="startDate" placeholder="End Date" defaultValue={endDate} ref={(endDate) => this._endDate = endDate}/>
+              <input type="datetime-local" class="form-control" id="startDate" placeholder="End Date" ref={(endDate) => this._endDate = endDate}/>
             </div>
           </div>
 

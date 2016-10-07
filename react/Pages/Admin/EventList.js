@@ -27,20 +27,20 @@ export default class EventList extends React.Component {
     });
   }
 
-  /*
-  _deleteLocation(location) {
+
+  _deleteEvent(event) {
     $.ajax({
       method: 'DELETE',
-      url: `/api/location/${location._id}`
+      url: `/api/event/${event._id}`
     });
 
-    const locations = [...this.state.locations];
-    const locationIndex = locations.indexOf(location);
-    locations.splice(locationIndex, 1);
+    const events = [...this.state.events];
+    const eventIndex = events.indexOf(event);
+    events.splice(eventIndex, 1);
 
-    this.setState({ locations })
+    this.setState({ events })
   }
-  */
+
 
   // Generates Event List Items from queried array of events
   _getEvents() {
@@ -49,7 +49,8 @@ export default class EventList extends React.Component {
         <EventListItem
           key={event._id}
           index={index + 1}
-          event={event}/>
+          event={event}
+          onDelete={::this._deleteEvent} />
       );
     });
   }

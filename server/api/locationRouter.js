@@ -72,6 +72,7 @@ locationRouter.put('/location/edit/:id', function(req, res) {
 
 
 // DELETE route to delete entries
+// TODO: Need to also delete all events with the location that's going to be deleted.
 
 locationRouter.delete('/location/:id', function(req, res) {
   Location.findByIdAndRemove(req.params.id, function(err, location) {
