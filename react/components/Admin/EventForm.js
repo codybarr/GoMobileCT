@@ -16,6 +16,18 @@ export default class EventForm extends React.Component {
   }
 
   componentDidUpdate() {
+    $('.datepicker').datepicker({
+      orientation: 'bottom auto',
+      autoclose: true,
+      todayBtn: true,
+      todayHighlight: true,
+
+    });
+
+    $('.timepicker').timepicker({
+      timeFormat: 'h:i A'
+    });
+
     this._setInitialValues();
   }
 
@@ -41,11 +53,21 @@ export default class EventForm extends React.Component {
 
   _setInitialValues() {
     const { event } = this.props;
-    const dateFormat='YYYY-MM-DD\Thh\:mm';
+    // const dateFormat='YYYY-MM-DD\Thh\:mm';
+    const dateFormat='MM/DD/YYYY';
+    const timeFormat='hh:mm A'
 
     this._location.value = event.location._id;
     this._startDate.value = moment(event.startDateTime).format(dateFormat);
+    this._startTime.value = moment(event.startDateTime).format(timeFormat);
+    $('#startDate').datepicker('setDate', moment(event.startDateTime).format(dateFormat));
+
     this._endDate.value = moment(event.endDateTime).format(dateFormat);
+    this._endTime.value = moment(event.endDateTime).format(timeFormat);
+    $('#endDate').datepicker('setDate', moment(event.endDateTime).format(dateFormat));
+
+    // this._startDate.value = moment(event.startDateTime).format(dateFormat);
+    // this._endDate.value = moment(event.endDateTime).format(dateFormat);
   }
 
   render() {
@@ -68,18 +90,42 @@ export default class EventForm extends React.Component {
           </div>
 
           <div class="form-group">
+            <label class="col-sm-2 control-label">Start Date / Time:</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control datepicker" id="startDate" ref={(startDate) => this._startDate = startDate}/>
+            </div>
+            <div class="col-sm-5">
+              <input type="text" class="form-control timepicker" id="startTime" ref={(startTime) => this._startTime = startTime}/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">End Date / Time:</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control datepicker" id="endDate" ref={(endDate) => this._endDate = endDate}/>
+            </div>
+            <div class="col-sm-5">
+              <input type="text" class="form-control timepicker" id="endTime" ref={(endTime) => this._endTime = endTime}/>
+            </div>
+          </div>
+
+          {/*
+          <div class="form-group">
             <label for="startDate" class="col-sm-2 control-label">Start Date</label>
             <div class="col-sm-10">
               <input type="datetime-local" class="form-control" id="startDate" placeholder="Start Date" ref={(startDate) => this._startDate = startDate}/>
             </div>
           </div>
 
+
           <div class="form-group">
             <label for="endDate" class="col-sm-2 control-label">End Date</label>
             <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="startDate" placeholder="End Date" ref={(endDate) => this._endDate = endDate}/>
+              <input type="datetime-local" class="form-control" id="endDate" placeholder="End Date" ref={(endDate) => this._endDate = endDate}/>
             </div>
           </div>
+
+          */}
 
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
@@ -94,11 +140,14 @@ export default class EventForm extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
+    const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
+    let startDate = moment(this._startDate.value + ' ' + this._startTime.value, dateTimeFormat);
+    let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);
 
     let newEvent = {
       location: this._location.value,
-      startDateTime: moment(this._startDate.value).utc().format(),
-      endDateTime: moment(this._endDate.value).utc().format()
+      startDateTime: startDate.utc().format(),
+      endDateTime: endDate.utc().format()
     };
 
     this.props.submitMethod(newEvent);

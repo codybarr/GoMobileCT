@@ -6,14 +6,13 @@ var moment = require('moment');
 
 // removes all Locations and Events
 
-
-Location.remove({}, function() {
-  console.log('Locations removed.');
-});
-
-Event.remove({}, function() {
-  console.log('Events removed.');
-});
+// Location.remove({}, function() {
+//   console.log('Locations removed.');
+// });
+//
+// Event.remove({}, function() {
+//   console.log('Events removed.');
+// });
 
 
 // Locations

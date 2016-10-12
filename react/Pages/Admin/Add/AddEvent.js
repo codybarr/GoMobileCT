@@ -16,8 +16,8 @@ export default class AddEvent extends React.Component {
           _id: "",
           name: ""
         },
-        startDateTime: moment(Date.now()).format(),
-        endDateTime: moment(Date.now()).add(2, 'hours').format()
+        startDateTime: moment().format(),
+        endDateTime: moment().add(2, 'hours').format()
       }
     }
   }
