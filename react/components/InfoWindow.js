@@ -12,7 +12,7 @@ export default class InfoWindow extends React.Component {
     if (this.props.events) {
       return this.props.events.map( (event, index) => {
         return (
-          <li key={event._id}>
+          <li key={event._id} class="list-group-item">
             {moment(event.startDateTime).format('MMMM D, YYYY h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
           </li>
         );
@@ -40,7 +40,7 @@ export default class InfoWindow extends React.Component {
           {addressName}
           <p>{description}</p>
         </div>
-        <ul>
+        <ul class="list-group">
           {events}
         </ul>
       </div>
