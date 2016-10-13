@@ -7,6 +7,7 @@ import Layout from './Pages/Layout';
 import Home from './Pages/Home';
 import Locations from './Pages/Locations';
 import Calendar from './Pages/Calendar';
+import PregnancyCalculator from './Pages/PregnancyCalculator';
 
 import Admin from './Pages/Admin';
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       <IndexRoute component={Home}></IndexRoute>
       <Route path='locations' name='locations' component={Locations} />
       <Route path='calendar' name='calendar' component={Calendar} />
+      <Route path='calculator' name='pregnancyCalculator' component={PregnancyCalculator} />
       <Route path='admin' name='admin' component={Admin}>
         <IndexRedirect to='locations' />
         <Route path='locations' component={LocationList} />
