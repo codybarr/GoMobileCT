@@ -109,24 +109,6 @@ export default class EventForm extends React.Component {
             </div>
           </div>
 
-          {/*
-          <div class="form-group">
-            <label for="startDate" class="col-sm-2 control-label">Start Date</label>
-            <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="startDate" placeholder="Start Date" ref={(startDate) => this._startDate = startDate}/>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="endDate" class="col-sm-2 control-label">End Date</label>
-            <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="endDate" placeholder="End Date" ref={(endDate) => this._endDate = endDate}/>
-            </div>
-          </div>
-
-          */}
-
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
               <button type="submit" class="btn btn-primary">{title} Event</button>

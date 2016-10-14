@@ -51,7 +51,6 @@ eventRouter.get('/event/:eventid', function(req, res) {
 
 eventRouter.post('/event/add', function(req, res) {
   var event = req.body;
-  console.log(event);
 
   Event.create(event, function(err, event) {
     if (err) {

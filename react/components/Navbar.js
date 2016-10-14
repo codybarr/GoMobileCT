@@ -33,6 +33,9 @@ export default class Navbar extends React.Component {
 
             <ul class="nav navbar-nav navbar-right">
               <li>
+                <Link to='/user/login'>Login</Link>
+              </li>
+              <li>
                 <Link to='/admin'>Admin</Link>
               </li>
               <li class="dropdown">

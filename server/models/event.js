@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-// location.name
-// location.location
-
 var eventSchema = new mongoose.Schema({
   location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
   startDateTime: { type: Date, default: Date.now },

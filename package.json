@@ -2,19 +2,34 @@
   "name": "go-mobile-ct",
   "version": "1.0.0",
   "description": "Simple Web App that shows the dates and locations of the mobile unit for Caring Families.",
-  "main": "server/app.js",
+  "main": "server/index.js",
   "scripts": {
     "dev": "webpack-dev-server --content-base public --inline --hot --progress --colors",
-    "start": "node server/app.js"
+    "start": "node server/index.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/codybarr/GoMobileCT.git"
+  },
+  "author": "Cody Barr",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.42",
     "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "jsonwebtoken": "^7.1.9",
     "moment": "^2.15.1",
-    "mongoose": "^4.6.0"
+    "mongoose": "^4.6.0",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.1.0",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-loader": "^6.2.5",

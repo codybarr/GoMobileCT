@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 import moment from 'moment';
 
 export default class PregnancyCalculator extends React.Component {
@@ -28,39 +30,42 @@ export default class PregnancyCalculator extends React.Component {
     };
 
     return (
-      <div>
+      <form class="form-horizontal">
         <h2>Pregnancy Calculator</h2>
 
-        <div class="input-group date">
-            <input class="form-control datepicker" type="text" placeholder="First Day of Last Menstrual Period" ref={(date) => this._periodDate = date} />
-            <div class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">First Day of Last Menstrual Period</label>
+          <div class="col-sm-9">
+            <input class="form-control datepicker" type="text" placeholder="1/1/2016" ref={(date) => this._periodDate = date} />
+          </div>
         </div>
-        <br />
 
-        <div class="input-group">
-          <span class="input-group-addon">Date of Conception *</span>
-          <input type="text" class="form-control" id="date-conception" readOnly="readonly" ref={(date) => this._conceptionDate = date}/>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Date of Conception *</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="date-conception" readOnly="readonly" ref={(date) => this._conceptionDate = date}/>
+          </div>
         </div>
-        <br />
 
-        <div class="input-group">
-          <span class="input-group-addon">Gestational Age *</span>
-          <input type="text" class="form-control" id="date-gestation" readOnly="readonly" ref={(age) => this._gestAge = age}/>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Gestational Age *</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="date-gestation" readOnly="readonly" ref={(age) => this._gestAge = age}/>
+          </div>
         </div>
-        <br />
 
-        <div class="input-group">
-          <span class="input-group-addon">Due Date *</span>
-          <input type="text" class="form-control" id="date-due" readOnly="readonly" ref={(date) => this._dueDate = date}/>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Due Date *</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="date-due" readOnly="readonly" ref={(date) => this._dueDate = date}/>
+          </div>
         </div>
-        <br />
 
-        <p class="congratulations hidden"><span style={congratsColor}>Congratulations! Because your gestational age is between 6 and 18 weeks you may qualify for a free ultrasound to determine viability. Please <a href="http://www.womenscenterec.com/#!contact/cln9">schedule</a> for an appointment.</span></p>
-
-        <p class="text-danger">* This is not a diagnosis. The calculations provided here are estimates only.</p>
-      </div>
+        <div class="col-sm-9 col-sm-offset-3">
+          <p class="text-danger">* This is not a diagnosis. The calculations provided here are estimates only.</p>
+          <p class="alert alert-success congratulations hidden"><strong>Congratulations!</strong> Because your gestational age is between 6 and 18 weeks you may qualify for a free ultrasound to determine viability. Please <Link to="/contact" class="alert-link">contact us</Link> to schedule an appointment!</p>
+        </div>
+      </form>
     );
   }
 

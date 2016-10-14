@@ -7,7 +7,7 @@ gulp.task('webpack', shell.task([
 ]));
 
 gulp.task('server', function (done) {
-  nodemon({ script: 'server/app.js', ext: 'js html'})
+  nodemon({ script: 'server/index.js', ext: 'js html'})
     .on('restart', function () {
       console.log('server restarted');
     });
