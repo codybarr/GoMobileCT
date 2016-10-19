@@ -8,6 +8,7 @@ import Home from './Pages/Home';
 import Locations from './Pages/Locations';
 import Calendar from './Pages/Calendar';
 import PregnancyCalculator from './Pages/PregnancyCalculator';
+import NotFoundPage from './Pages/NotFoundPage';
 
 import User from './Pages/User';
 import Login from './Pages/User/Login';
@@ -46,6 +47,8 @@ ReactDOM.render(
 
       <Route path='admin/add/event' name='add-event' component={AddEvent} />
       <Route path='admin/event/:id' component={EditEvent} />
+
+      <Route path='*' component={NotFoundPage} />
     </Route>
   </Router>,
   document.getElementById('app'));
