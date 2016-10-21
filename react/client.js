@@ -24,6 +24,7 @@ import AddEvent from './Pages/Admin/Add/AddEvent';
 import EditEvent from './Pages/Admin/Edit/EditEvent';
 
 
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={Layout}>

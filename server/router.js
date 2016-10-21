@@ -1,22 +1,16 @@
 const locationRoutes           = require('./api/locationRouter'),
       eventRoutes              = require('./api/eventRouter'),
-      express                  = require('express'),
-      AuthenticationController = require('./controllers/authentication'),
-      passportService = require('./config/passport'),
-      passport = require('passport');
-
-// Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireLogin = passport.authenticate('local', { session: false });
+      authRoutes               = require('./api/authRouter'),
+      express                  = require('express');
 
 // Constants for role types
-const REQUIRE_ADMIN = "Admin",
+const REQUIRE_SUPERADMIN = "Superadmin",
+      REQUIRE_ADMIN = "Admin",
       REQUIRE_CLIENT = "Client";
 
 module.exports = function(app) {
   // Initializing route groups
-  const apiRoutes = express.Router(),
-        authRoutes = express.Router();
+  const apiRoutes = express.Router();
 
   //=========================
   // Location Routes
@@ -32,12 +26,6 @@ module.exports = function(app) {
   //=========================
   // Auth Routes
   //=========================
-
-  // Registration route
-  authRoutes.post('/register', AuthenticationController.register);
-
-  // Login route
-  authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
   // Set auth routes as subgroup/middleware to apiRoutes
   apiRoutes.use('/auth', authRoutes);

@@ -9,9 +9,7 @@ const express  = require('express'),
       config   = require('./config/main'),
       database = require('./database');
 
-const locationRouter = require('./api/locationRouter'),
-      eventRouter    = require('./api/eventRouter');
-
+// Router for events, locations, and authentication
 const router = require('./router');
 // var authRouter = require('./api/authRouter');
 
@@ -19,20 +17,14 @@ require('./config/seed');
 
 app.use(logger('dev')); // Log HTTP requests
 
-/*
-var passport = require('passport');
-var flash    = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-*/
-
-
 // Favicon
 app.use(favicon(path.resolve('public', 'favicon.ico')));
 
 // Static Files
 app.use(express.static('public'));
-app.use(parser.urlencoded({ extended: false }));
+
+
+// app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 
 // API Routers / Routers

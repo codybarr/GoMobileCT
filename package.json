@@ -27,11 +27,13 @@
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
+    "passport-json": "^1.2.0",
     "passport-jwt": "^2.1.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
+    "axios": "^0.15.2",
     "babel-loader": "^6.2.5",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-html-attrs": "^2.0.0",
@@ -40,6 +42,7 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
+    "flux": "^3.1.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-concat": "^2.6.0",
     "gulp-minify-css": "^1.2.4",
@@ -49,8 +52,13 @@
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "react": "^15.3.2",
+    "react-cookie": "^0.4.8",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.0",
+    "redux-promise-middleware": "^4.1.0",
+    "redux-thunk": "^2.1.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
   }

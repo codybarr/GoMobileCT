@@ -1,4 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
+
+import AuthStore from '../../stores/AuthStore';
+import * as AuthActions from '../../actions/AuthActions';
 
 export default class Login extends React.Component {
 
@@ -24,6 +28,12 @@ export default class Login extends React.Component {
     }
   }
 
+  _handleSubmit(e) {
+    e.preventDefault();
+
+    AuthActions.login(this._email.value, this._password.value);
+  }
+
   render() {
     const error = this._getError();
 
@@ -31,20 +41,20 @@ export default class Login extends React.Component {
       <div>
         <h2>Login</h2>
 
-        <form class="form-horizontal" >
+        <form class="form-horizontal" onSubmit={::this._handleSubmit}>
           {error}
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Username</label>
+            <label class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control username" placeholder="Username"/>
+              <input type="text" class="form-control email" placeholder="email" ref={(email) => this._email = email}/>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control password" placeholder="Password" />
+              <input type="password" class="form-control password" placeholder="Password" ref={(password) => this._password = password}/>
             </div>
           </div>
 

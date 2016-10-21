@@ -4,12 +4,12 @@ const passport = require('passport'),
       config = require('./main'),
       JwtStrategy = require('passport-jwt').Strategy,
       ExtractJwt = require('passport-jwt').ExtractJwt,
-      LocalStrategy = require('passport-local');
+      JsonStrategy = require('passport-json').Strategy;
 
-const localOptions = { usernameField: 'email' };
+const jsonOptions = { usernameProp: 'email' };
 
-// Setting up local login strategy
-const local = new LocalStrategy(localOptions, function(email, password, done) {
+// Setting up json login strategy
+const json = new JsonStrategy(jsonOptions, function(email, password, done) {
   User.findOne({ email: email }, function(err, user) {
     if (err) return done(err);
     if (!user) return done(null, false, { error: 'Username or password were incorrect.' });
@@ -47,4 +47,4 @@ const jwt = new JwtStrategy(jwtOptions, function(payload, done) {
 });
 
 passport.use(jwt);
-passport.use(local); 
+passport.use(json);
