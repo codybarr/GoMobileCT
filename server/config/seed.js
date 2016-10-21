@@ -57,8 +57,8 @@ locations.forEach(function(location, index) {
 var users = [
   {
     email: 'cody.barr@gmail.com',
-    password: '$2a$10$iSL/8Y0zvH9N6q9SSI0wSemQZilSl8rS3Oms13cYTdWSOGJe1JvJK', // 'password' with ten salt rounds?
-    role: 'Admin'
+    password: 'password', // 'password' with ten salt rounds?
+    role: 'Superadmin'
   }
 ];
 

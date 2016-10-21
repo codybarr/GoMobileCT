@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRoute, IndexRedirect, Route, browserHistory } from 'react-router';
 
+import AuthStore from './stores/AuthStore';
+
 import Layout from './Pages/Layout';
 
 import Home from './Pages/Home';
 import Locations from './Pages/Locations';
 import Calendar from './Pages/Calendar';
 import PregnancyCalculator from './Pages/PregnancyCalculator';
-import NotFoundPage from './Pages/NotFoundPage';
+import NotFound404 from './Pages/NotFound404';
+import NotAuthorized401 from './Pages/NotAuthorized401';
 
 import User from './Pages/User';
 import Login from './Pages/User/Login';
@@ -24,6 +27,18 @@ import AddEvent from './Pages/Admin/Add/AddEvent';
 import EditEvent from './Pages/Admin/Edit/EditEvent';
 
 
+function requireAuth(nextState, replace) {
+  if (!AuthStore.loggedIn()) {
+    // replaceState({ nextPathname: nextState.location.pathname }, '/user/login')
+    replace({ pathname: '/user/login', state: { error: 'You need to login to access this page.' } });
+  }
+}
+
+function checkedLoggedIn(nextState, replace) {
+  if (AuthStore.loggedIn()) {
+    replace({ pathname: '/admin', state: { alert: "You're already logged in silly goose!"}});
+  }
+}
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -35,21 +50,21 @@ ReactDOM.render(
 
       <Route path='user' name='user' component={User}>
         <IndexRedirect to='login' />
-        <Route path='login' component={Login} />
+        <Route path='login' component={Login} onEnter={checkedLoggedIn}/>
       </Route>
 
-      <Route path='admin' name='admin' component={Admin}>
+      <Route path='admin' name='admin' component={Admin} onEnter={requireAuth}>
         <IndexRedirect to='locations' />
         <Route path='locations' component={LocationList} />
+        <Route path='add/location' name='add-location' component={AddLocation} />
+        <Route path='location/:id' component={EditLocation} />
+
         <Route path='events' name='admin-events' component={EventList} />
+        <Route path='add/event' name='add-event' component={AddEvent} />
+        <Route path='event/:id' component={EditEvent} />
       </Route>
-      <Route path='admin/add/location' name='add-location' component={AddLocation} />
-      <Route path='admin/location/:id' component={EditLocation} />
 
-      <Route path='admin/add/event' name='add-event' component={AddEvent} />
-      <Route path='admin/event/:id' component={EditEvent} />
-
-      <Route path='*' component={NotFoundPage} />
+      <Route path='*' component={NotFound404} />
     </Route>
   </Router>,
   document.getElementById('app'));

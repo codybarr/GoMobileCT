@@ -15,11 +15,14 @@ export default class Login extends React.Component {
   }
 
   _getError() {
-    if (this.state.error) {
+    // checks this.props.location.state.error (redirected to this page when trying to access a protected route)
+    const { location } = this.props;
+
+    if (location.state && location.state.error) {
       return (
         <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-            <p class="alert alert-danger">There was an error logging in</p>
+            <p class="alert alert-danger">{location.state.error}</p>
           </div>
         </div>
       );

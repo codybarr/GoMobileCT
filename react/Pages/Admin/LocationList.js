@@ -52,12 +52,26 @@ export default class LocationList extends React.Component {
     });
   }
 
+  _getAlert() {
+    const { location } = this.props;
+
+    if (location.state && location.state.alert) {
+      return (
+        <p class="alert alert-warning">{location.state.alert}</p>
+      );
+    } else {
+      return null;
+    }
+  }
+
 
   render() {
     const locations = this._getLocations();
+    const alert = this._getAlert();
 
     return (
       <div class="LocationList">
+        {alert}
         <div class="panel panel-default">
           <AdminNavTabs active='location' />
           <table class="table">

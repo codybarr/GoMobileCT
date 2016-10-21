@@ -8,20 +8,30 @@ export default class Navbar extends React.Component {
 
   constructor() {
     super();
+    this.getAuth = this.getAuth.bind(this);
+
     this.state = {
       loggedIn: AuthStore.loggedIn(),
       user: AuthStore.getUser()
     };
   }
 
-  componentWillMount() {
-    AuthStore.on("change", () => {
-      this.setState({
-        loggedIn: AuthStore.loggedIn(),
-        user: AuthStore.getUser()
-      });
+  getAuth() {
+    this.setState({
+      loggedIn: AuthStore.loggedIn(),
+      user: AuthStore.getUser()
     });
   }
+
+  componentWillMount() {
+    AuthStore.on("change", this.getAuth);
+    console.log("count", AuthStore.listenerCount("change"));
+  }
+
+  componentWillUnmount() {
+    AuthStore.removeListener("change", this.getAuth);
+  }
+
 
   _handleLogout(e) {
     e.preventDefault();

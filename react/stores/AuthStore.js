@@ -6,6 +6,7 @@ class AuthStore extends EventEmitter {
   constructor() {
     super();
 
+    // Pulls initial values from localstorage if they exist
     this.authenticated = JSON.parse(localStorage.getItem('authenticated')) || false;
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
   }
@@ -21,7 +22,7 @@ class AuthStore extends EventEmitter {
   }
 
   loggedIn() {
-    return this.authenticated;
+    return this.authenticated === true;
   }
 
   getUser() {
