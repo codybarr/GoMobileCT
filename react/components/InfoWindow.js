@@ -9,8 +9,8 @@ export default class InfoWindow extends React.Component {
 
   _getEvents() {
     let events;
-    if (this.props.events) {
-      return this.props.events.map( (event, index) => {
+    if (this.props.location && this.props.location.events) {
+      return this.props.location.events.map( (event, index) => {
         return (
           <li key={event._id} class="list-group-item">
             {moment(event.startDateTime).format('MMMM D, YYYY h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
@@ -21,8 +21,9 @@ export default class InfoWindow extends React.Component {
   }
 
   render() {
-    const { name, address, description } = this.props.info;
-    const events = this._getEvents();
+    const { location } = this.props || {};
+    const { name, address, description } = location || {};
+    const events = this._getEvents() || [];
 
     let addressName;
     if (address) {

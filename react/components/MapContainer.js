@@ -43,23 +43,28 @@ export default class MapContainer extends React.Component {
     $.ajax({
       method: 'GET',
       url: '/api/locations',
-      success: (data) => {
-        // this.state.locations = this.state.locations || [];
-        // var locations = data.locations.filter((location) => {
-        //   return this.state.locations.map((local) => local.name).indexOf(location.name) === -1;
-        // });
+      success: (locationsQuery) => {
+        $.ajax({
+          method: 'GET',
+          url: '/api/events/current',
+          success: (eventsQuery) => {
+            var locations = locationsQuery.locations.map((location) => {
+              location.events = eventsQuery.events.filter((event) => {
+                return event.location._id === location._id;
+              });
+              return location;
+            });
 
-        this.setState({ locations: data.locations });
-        this._addMarkers();
+            this.setState({ locations: locations });
+            this._addMarkers();
+          }
+        });
       }
     });
-
   }
 
   _addMarkers() {
     this.state.locations.forEach(::this._addMarker);
-
-    console.log(this._markers);
   }
 
   _addMarker(location, index, array) {
@@ -70,20 +75,14 @@ export default class MapContainer extends React.Component {
       map: this.map
     });
     marker.addListener('click', () => {
-      this._lookupEvents(location, marker);
+      this._setCurrentLocation(location);
       this._updateIcons(marker);
     });
     this._markers.push(marker);
   }
 
-  _lookupEvents(location) {
-    $.ajax({
-      method: 'GET',
-      url: `/api/events/${location._id}`,
-      success: (data) => {
-        this.setState({ info: location, events: data.events });
-      }
-    });
+  _setCurrentLocation(location) {
+    this.setState({ currentLocation: location });
   }
 
   _updateIcons(marker) {
@@ -109,7 +108,7 @@ export default class MapContainer extends React.Component {
           </div>
         </div>
         <div class="col-md-4">
-          <InfoWindow info={this.state.info} events={this.state.events}/>
+          <InfoWindow location={this.state.currentLocation} />
         </div>
       </div>
     );

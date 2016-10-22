@@ -31,13 +31,13 @@ eventRouter.get('/events', function(req, res) {
     });
 });
 
-// GET route to retrieve existing events based on a given location
-// with an end date greater than now
+// GET route to retrieve all current or future events
 
-eventRouter.get('/events/:locationid', function(req, res) {
+eventRouter.get('/events/current', function(req, res) {
 
-  Event.find({ location: req.params.locationid })
+  Event.find()
     .where('endDateTime').gt(moment(Date.now()).format())
+    .populate('location', 'id')
     .exec(function(err, events) {
       if (err) {
         return res.status(500).json({message: err.message});
