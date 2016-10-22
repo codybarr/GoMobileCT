@@ -3,6 +3,11 @@
 import React from 'react';
 import InfoWindow from './InfoWindow';
 
+const ICON = {
+  active: '/images/ic_directions_bus_black_36px_blue.svg',
+  inactive: '/images/ic_directions_bus_black_36px.svg'
+};
+
 export default class MapContainer extends React.Component {
   constructor() {
     super();
@@ -18,6 +23,8 @@ export default class MapContainer extends React.Component {
       events: [],
       locations: []
     };
+
+    this._markers = [];
   }
 
   componentDidMount() {
@@ -25,7 +32,8 @@ export default class MapContainer extends React.Component {
     // Creates the map
     this.map = new google.maps.Map(this.refs.map, {
       center: { lat: 41.5019391, lng: -73.0370646 },
-      zoom: 11
+      zoom: 11,
+      scrollwheel: false
     });
 
     // Repositions the map to fit all of Connecticut
@@ -50,18 +58,22 @@ export default class MapContainer extends React.Component {
 
   _addMarkers() {
     this.state.locations.forEach(::this._addMarker);
+
+    console.log(this._markers);
   }
 
   _addMarker(location, index, array) {
-
     var marker = new google.maps.Marker({
       position: location.latlng,
       title: location.name,
+      icon: ICON.inactive,
       map: this.map
     });
     marker.addListener('click', () => {
-      this._lookupEvents(location);
+      this._lookupEvents(location, marker);
+      this._updateIcons(marker);
     });
+    this._markers.push(marker);
   }
 
   _lookupEvents(location) {
@@ -70,6 +82,16 @@ export default class MapContainer extends React.Component {
       url: `/api/events/${location._id}`,
       success: (data) => {
         this.setState({ info: location, events: data.events });
+      }
+    });
+  }
+
+  _updateIcons(marker) {
+    this._markers.forEach((currentMarker, index, array) => {
+      if (currentMarker === marker) {
+        currentMarker.setIcon(ICON.active);
+      } else {
+        currentMarker.setIcon(ICON.inactive);
       }
     });
   }
