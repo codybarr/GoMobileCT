@@ -116,6 +116,7 @@ export default class EditLocation extends React.Component {
       method: 'PUT',
       contentType: "application/json",
       url: `/api/location/edit/${this.state.location._id}`,
+      headers: { 'Authorization': localStorage.getItem('token') },
       data: JSON.stringify(newLocation),
       success: (data) => {
         // Route the user back to the admin locations page

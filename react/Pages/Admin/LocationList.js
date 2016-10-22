@@ -30,7 +30,8 @@ export default class LocationList extends React.Component {
   _deleteLocation(location) {
     $.ajax({
       method: 'DELETE',
-      url: `/api/location/${location._id}`
+      url: `/api/location/${location._id}`,
+      headers: { 'Authorization': localStorage.getItem('token') }
     });
 
     const locations = [...this.state.locations];

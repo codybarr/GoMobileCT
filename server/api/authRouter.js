@@ -10,7 +10,8 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('json', { session: false });
 
 // Registration route
-authRoutes.post('/register', AuthenticationController.register);
+// Will have to rewrite this to be user add/update/delete routes
+// authRoutes.post('/register', AuthenticationController.register);
 
 // Login route
 authRoutes.post('/login', requireLogin, AuthenticationController.login);

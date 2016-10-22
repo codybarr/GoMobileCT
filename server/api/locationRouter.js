@@ -3,6 +3,14 @@ var Location = require('../models/location');
 
 var locationRouter = express.Router();
 
+// Authentication Requires
+const AuthenticationController = require('../controllers/authentication'),
+      passportService = require('../config/passport'),
+      passport = require('passport');
+
+// Middleware to require login/auth
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 // GET route to retrieve existing locations
 
 locationRouter.get('/locations', function(req, res) {
@@ -14,6 +22,10 @@ locationRouter.get('/locations', function(req, res) {
     }
   });
 });
+
+/*
+ * Public Routes
+ */
 
 // GET route to retrieve all location names and IDs only
 // TODO: figure out a way to enable the standard location GET route to digest
@@ -43,9 +55,13 @@ locationRouter.get('/location/:id', function(req, res) {
   });
 });
 
+/*
+ * Protected Routes
+ */
+
 // POST route to create new entries
 
-locationRouter.post('/location/add', function(req, res) {
+locationRouter.post('/location/add', requireAuth, function(req, res) {
   var location = req.body;
   Location.create(location, function(err, location) {
     if (err) {
@@ -57,7 +73,7 @@ locationRouter.post('/location/add', function(req, res) {
 
 // PUT route to update existing entries
 
-locationRouter.put('/location/edit/:id', function(req, res) {
+locationRouter.put('/location/edit/:id', requireAuth, function(req, res) {
   var id = req.params.id;
   var location = req.body;
 
@@ -74,7 +90,7 @@ locationRouter.put('/location/edit/:id', function(req, res) {
 // DELETE route to delete entries
 // TODO: Need to also delete all events with the location that's going to be deleted.
 
-locationRouter.delete('/location/:id', function(req, res) {
+locationRouter.delete('/location/:id', requireAuth, function(req, res) {
   Location.findByIdAndRemove(req.params.id, function(err, location) {
     if (err) {
       return res.status(500).json({err: err.message});

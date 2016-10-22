@@ -48,6 +48,7 @@ export default class EditEvent extends React.Component {
       method: 'PUT',
       contentType: "application/json",
       url: `/api/event/edit/${this.props.params.id}`,
+      headers: { 'Authorization': localStorage.getItem('token') },
       data: JSON.stringify(newEvent),
       success: (data) => {
         // Route the user back to the admin locations page

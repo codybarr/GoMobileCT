@@ -31,7 +31,8 @@ export default class EventList extends React.Component {
   _deleteEvent(event) {
     $.ajax({
       method: 'DELETE',
-      url: `/api/event/${event._id}`
+      url: `/api/event/${event._id}`,
+      headers: { 'Authorization': localStorage.getItem('token') }
     });
 
     const events = [...this.state.events];

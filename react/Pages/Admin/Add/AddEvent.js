@@ -35,6 +35,7 @@ export default class AddEvent extends React.Component {
       method: 'POST',
       contentType: "application/json",
       url: '/api/event/add',
+      headers: { 'Authorization': localStorage.getItem('token') },
       data: JSON.stringify(newEvent),
       success: (data) => {
         // Route the user back to the admin locations page

@@ -69,6 +69,7 @@ export default class AddLocation extends React.Component {
       method: 'POST',
       contentType: "application/json",
       url: '/api/location/add',
+      headers: { 'Authorization': localStorage.getItem('token') },
       data: JSON.stringify(newLocation),
       success: (data) => {
         // Route the user back to the admin locations page
