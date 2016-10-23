@@ -28,6 +28,17 @@ export default class LocationList extends React.Component {
   }
 
   _deleteLocation(location) {
+    // delete all events associated with the location
+    $.ajax({
+      method: 'DELETE',
+      contentType: 'application/json',
+      url: '/api/event',
+      headers: { 'Authorization': localStorage.getItem('token') },
+      data: JSON.stringify({ locationId: location._id })
+    });
+
+
+    // delete the location
     $.ajax({
       method: 'DELETE',
       url: `/api/location/${location._id}`,

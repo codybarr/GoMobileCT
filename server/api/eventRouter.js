@@ -93,7 +93,7 @@ eventRouter.put('/event/edit/:id', requireAuth, function(req, res) {
   });
 });
 
-// DELETE route to delete events
+// DELETE route to delete an event by ID
 
 eventRouter.delete('/event/:id', requireAuth, function(req, res) {
   Event.findByIdAndRemove(req.params.id, function(err, event) {
@@ -101,6 +101,16 @@ eventRouter.delete('/event/:id', requireAuth, function(req, res) {
       return res.status(500).json({err: err.message});
     }
     res.json({event: event, message: 'Location removed!'});
+  });
+});
+
+// DELETE route to delete events with a specified location id
+eventRouter.delete('/event', requireAuth, function(req, res) {
+  Event.remove({ location: req.body.locationId}, function(err, event) {
+    if (err) {
+      return res.status(500).json({err: err.message});
+    }
+    res.json({event: event, message: `Events removed for location ${req.query.locationId}`});
   });
 });
 

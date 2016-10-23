@@ -29,7 +29,7 @@ export default class LocationListItem extends React.Component {
 
   _handleDelete(event) {
     event.preventDefault();
-    if (confirm(`Are you sure you want to delete ${this.props.location.name}?`)) {
+    if (confirm(`Are you sure you want to delete ${this.props.location.name}? All of it's events will be deleted too.`)) {
       this.props.onDelete(this.props.location);
     }
   }

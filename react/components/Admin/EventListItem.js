@@ -16,7 +16,7 @@ export default class EventListItem extends React.Component {
     return (
       <tr>
         <td>{index}</td>
-        <td style={noWrap}>{event.location.name}</td>
+        <td style={noWrap}>{event.location && event.location.name}</td>
         <td>{startTime}</td>
         <td style={noWrap}>{endTime}</td>
         <td style={noWrap} class="event-actions">

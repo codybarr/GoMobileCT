@@ -40,8 +40,6 @@ class AuthStore extends EventEmitter {
       url: '/api/auth/login',
       data: JSON.stringify({ email: email, password: password }),
       success: (data) => {
-        console.log(data);
-
         // Set local variables
         this.authenticated = true;
         this.user = data.user;
@@ -81,7 +79,7 @@ class AuthStore extends EventEmitter {
         this.logout();
       }
     }
-    console.log("AuthStore received an action", action);
+    // console.log("AuthStore received an action", action);
   }
 }
 

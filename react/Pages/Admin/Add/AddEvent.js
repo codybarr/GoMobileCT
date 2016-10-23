@@ -31,7 +31,6 @@ export default class AddEvent extends React.Component {
 
     // Add Event
     $.ajax({
-      async: true,
       method: 'POST',
       contentType: "application/json",
       url: '/api/event/add',

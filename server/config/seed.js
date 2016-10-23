@@ -8,13 +8,13 @@ var moment = require('moment');
 
 // removes all Locations and Events
 
-// Location.remove({}, function() {
-//   console.log('Locations removed.');
-// });
-//
-// Event.remove({}, function() {
-//   console.log('Events removed.');
-// });
+Location.remove({}, function() {
+  console.log('Locations removed.');
+});
+
+Event.remove({}, function() {
+  console.log('Events removed.');
+});
 
 
 // Locations
@@ -36,17 +36,19 @@ locations.forEach(function(location, index) {
     if (!err && !locations.length) {
       Location.create(location, function(err, newLocation) {
         console.log('Location "%s" was created!', newLocation._id);
-        Event.create({
-          location: newLocation._id,
-          startDateTime: moment(Date.now()).utc().toISOString(),
-          endDateTime: moment(Date.now()).utc().add(2, 'hours').toISOString()
-        }, function(err, newEvent) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log('New Event created');
-          }
-        });
+        for (var i = 1; i < 5; i++) {
+          Event.create({
+            location: newLocation._id,
+            startDateTime: moment(Date.now()).utc().add(i, 'hours').toISOString(),
+            endDateTime: moment(Date.now()).utc().add(i + 2, 'hours').toISOString()
+          }, function(err, newEvent) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('New Event created');
+            }
+          });
+        }
       });
     }
   });
