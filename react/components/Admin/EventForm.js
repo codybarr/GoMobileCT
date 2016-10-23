@@ -122,6 +122,7 @@ export default class EventForm extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
+    
     const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
     let startDate = moment(this._startDate.value + ' ' + this._startTime.value, dateTimeFormat);
     let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);

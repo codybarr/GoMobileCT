@@ -25,7 +25,6 @@ export default class Navbar extends React.Component {
 
   componentWillMount() {
     AuthStore.on("change", this.getAuth);
-    console.log("count", AuthStore.listenerCount("change"));
   }
 
   componentWillUnmount() {
