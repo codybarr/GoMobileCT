@@ -71,7 +71,10 @@ eventRouter.post('/event/add', requireAuth, function(req, res) {
 
   Event.create(event, function(err, event) {
     if (err) {
-      return res.status(500).json({err: err.message});
+      console.log('EventRouter Error before', err);
+      err = handleError(err);
+      console.log('EventRouter Error after', err);
+      return res.status(500).json({errors: err.errors});
     }
     res.json({event: event, message: 'Event created!'});
   });
@@ -85,9 +88,12 @@ eventRouter.put('/event/edit/:id', requireAuth, function(req, res) {
   var event = req.body;
 
   // {new: true} returns the updated document rather than the original one
-  Event.findByIdAndUpdate(id, event, {new: true}, function(err, event) {
+  Event.findByIdAndUpdate(id, event, {new: true, runValidators: true}, function(err, event) {
     if (err) {
-      return res.status(500).json({err: err.message});
+      // console.log('EventRouter Error before', err);
+      // err = handleError(err);
+      // console.log('EventRouter Error after', err);
+      return res.status(500).json({errors: err});
     }
     res.json({event: event, message: 'Location updated'});
   });
@@ -113,6 +119,32 @@ eventRouter.delete('/event', requireAuth, function(req, res) {
     res.json({event: event, message: `Events removed for location ${req.query.locationId}`});
   });
 });
+
+/*
+ * Helper Functions
+ */
+
+function handleError(err) {
+  var prettyNames = {
+   location: 'Location',
+   startDateTime: 'Start Date / Time',
+   endDateTime: 'End Date / Time'
+  };
+
+  for (var errName in err.errors) {
+    console.log('Error Name', err.errors[errName].name);
+    switch(err.errors[errName].name) {
+      case 'CastError':
+        if (errName === 'location') {
+         err.errors[errName].message = "Please select a location";
+        } else {
+         err.errors[errName].message = `${prettyNames[errName]} is invalid`;
+        }
+        break;
+    }
+  }
+  return err;
+}
 
 
 module.exports = eventRouter;

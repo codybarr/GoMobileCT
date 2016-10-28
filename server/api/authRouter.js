@@ -6,7 +6,7 @@ const AuthenticationController = require('../controllers/authentication'),
       passport = require('passport');
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false });
+// const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('json', { session: false });
 
 // Registration route

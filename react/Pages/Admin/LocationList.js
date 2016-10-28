@@ -1,5 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
+
+
+import AuthStore from '../../stores/AuthStore';
+import * as AuthActions from '../../actions/AuthActions';
 
 import AdminNavTabs from '../../components/Admin/AdminNavTabs';
 import LocationListItem from '../../components/Admin/LocationListItem';
@@ -28,21 +32,54 @@ export default class LocationList extends React.Component {
   }
 
   _deleteLocation(location) {
+    // delete the location
+    $.ajax({
+      method: 'DELETE',
+      url: `/api/location/${location._id}`,
+      headers: { 'Authorization': AuthStore.getToken() },
+      success: (data) => {
+        this._deleteRelatedEvents(location);
+      },
+      error: (xhr) => {
+        if (xhr.status == 401) {
+          AuthActions.logout();
+          browserHistory.push({
+            pathname: '/user/login',
+            state: {
+              error: 'Your session has expired, please login again'
+            }
+          });
+        } else {
+          console.log(xhr.responseJSON.errors);
+          this.setState({ errors: xhr.responseJSON.errors });
+        }
+      }
+    });
+  }
+
+  _deleteRelatedEvents(location) {
     // delete all events associated with the location
     $.ajax({
       method: 'DELETE',
       contentType: 'application/json',
       url: '/api/event',
-      headers: { 'Authorization': localStorage.getItem('token') },
-      data: JSON.stringify({ locationId: location._id })
-    });
-
-
-    // delete the location
-    $.ajax({
-      method: 'DELETE',
-      url: `/api/location/${location._id}`,
-      headers: { 'Authorization': localStorage.getItem('token') }
+      headers: { 'Authorization': AuthStore.getToken() },
+      data: JSON.stringify({ locationId: location._id }),
+      error: (xhr) => {
+        // console.log(xhr.responseJSON);
+        if (xhr.status == 401) {
+          AuthActions.logout();
+          browserHistory.push({
+            pathname: '/user/login',
+            state: {
+              error: 'Your session has expired, please login again'
+            }
+          });
+        } else {
+          console.log(xhr.responseJSON.errors);
+          this.setState({ errors: xhr.responseJSON.errors });
+        }
+      }
     });
 
     const locations = [...this.state.locations];

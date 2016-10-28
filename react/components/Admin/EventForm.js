@@ -70,13 +70,39 @@ export default class EventForm extends React.Component {
     // this._endDate.value = moment(event.endDateTime).format(dateFormat);
   }
 
+  _getErrors() {
+    var errors = [];
+    var order = ["location", "startDateTime", "endDateTime"];
+
+    if (this.props.errors) {
+      console.log('Errors', this.props.errors);
+      console.log('Object.keys', Object.keys(this.props.errors));
+      errors = Object.keys(this.props.errors).sort( (a, b) => {
+        return order.indexOf(a) - order.indexOf(b);
+      }).map( (error) => {
+        return (<li key={error}>{this.props.errors[error].message}</li>);
+      });
+
+      return (
+        <div class="alert alert-danger col-sm-10 col-sm-offset-2">
+          <ul>{errors}</ul>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const { title } = this.props;
     const locations = this._getLocations();
+    const errors = this._getErrors();
 
     return (
       <div class="eventForm">
         <h2>{title} Event</h2>
+
+        {errors}
 
         <form class="form-horizontal" onSubmit={::this._handleSubmit}>
           <div class="form-group">
@@ -122,7 +148,7 @@ export default class EventForm extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
-    
+
     const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
     let startDate = moment(this._startDate.value + ' ' + this._startTime.value, dateTimeFormat);
     let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);

@@ -12,7 +12,7 @@ export default class LocationForm extends React.Component {
   }
 
   componentDidUpdate() {
-    this._setInitialValues();
+    // this._setInitialValues();
   }
 
   _setInitialValues() {
@@ -68,30 +68,57 @@ export default class LocationForm extends React.Component {
     });
   }
 
+  _getErrors() {
+    var errors = [];
+    var order = ["name", "address", "latlng.lat", "latlng.lng", "description"];
+
+    if (this.props.errors) {
+      // console.log('Object.keys', Object.keys(this.props.errors));
+      errors = Object.keys(this.props.errors).sort( (a, b) => {
+        return order.indexOf(a) - order.indexOf(b);
+      }).map( (error) => {
+        return (<li key={error}>{this.props.errors[error].message}</li>);
+      });
+
+      return (
+        <div class="alert alert-danger col-sm-10 col-sm-offset-2">
+          <ul>{errors}</ul>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+
   render() {
     const mapStyle = {
       height: 400
     }
 
-    const { title } = this.props;
+    const { title, location } = this.props || {};
+
+    const errors = this._getErrors();
 
     return (
       <div class="add-location">
         <h2>{title} Location</h2>
 
+        {errors}
+
         <form class="form-horizontal" onSubmit={::this._handleSubmit}>
           <div class="form-group">
             <label for="locationName" class="col-sm-2 control-label">Location Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="locationName" placeholder="Women's Center of Eastern Connecticut" ref={(locationName) => this._locationName = locationName}/>
+              <input type="text" class="form-control" id="locationName" placeholder="Women's Center of Eastern Connecticut" ref={(locationName) => this._locationName = locationName} defaultValue={location.name}/>
             </div>
           </div>
           <div class="form-group">
             <label for="geolocation" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-8">
-              <input type="search" class="form-control" id="geolocation" placeholder="968 Main St. Willimantic, CT" ref={(address) => this._address = address}/>
-              <input type="hidden" ref={(lat) => this._lat = lat} />
-              <input type="hidden" ref={(lng) => this._lng = lng} />
+              <input type="search" class="form-control" id="geolocation" placeholder="968 Main St. Willimantic, CT" ref={(address) => this._address = address} defaultValue={location.address}/>
+              <input type="hidden" ref={(lat) => this._lat = lat} defaultValue={location.latlng.lat} />
+              <input type="hidden" ref={(lng) => this._lng = lng} defaultValue={location.latlng.lng} />
             </div>
             <div class="col-sm-2">
               <button type="submit" class="btn btn-default" onClick={::this._codeAddress}>Search</button>
@@ -106,7 +133,7 @@ export default class LocationForm extends React.Component {
           <div class="form-group">
             <label for="description" class="col-sm-2 control-label col-form-label">Description</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="3" class="form-control" rows="3" id="description" placeholder="Description" ref={(description) => this._description = description}/>
+              <textarea class="form-control" rows="3" class="form-control" rows="3" id="description" placeholder="Description" ref={(description) => this._description = description} defaultValue={location.description}/>
             </div>
           </div>
 
@@ -132,7 +159,6 @@ export default class LocationForm extends React.Component {
       },
       description: this._description.value
     };
-
 
     this.props.submitMethod(newLocation);
   }

@@ -17,7 +17,7 @@ export default class EventListItem extends React.Component {
       <tr>
         <td>{index}</td>
         <td style={noWrap}>{event.location && event.location.name}</td>
-        <td>{startTime}</td>
+        <td style={noWrap}>{startTime}</td>
         <td style={noWrap}>{endTime}</td>
         <td style={noWrap} class="event-actions">
           <Link to={'/admin/event/' + event._id} class="btn btn-primary btn-xs">Edit</Link>

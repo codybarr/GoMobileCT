@@ -2,6 +2,8 @@ import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
 import { browserHistory } from 'react-router';
 
+
+
 class AuthStore extends EventEmitter {
   constructor() {
     super();
@@ -29,9 +31,13 @@ class AuthStore extends EventEmitter {
     return this.user;
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
   // Actions
 
-  login(email, password) {
+  login(email, password, cb) {
 
     $.ajax({
       async: true,
@@ -52,6 +58,13 @@ class AuthStore extends EventEmitter {
         // Route the user back to the admin locations page
         browserHistory.push('/admin');
         this.emit("change");
+      },
+      error: (xhr, message, error) => {
+        console.log('Error logging in!', xhr);
+        if (xhr.status == 401) {
+          console.log('AuthStore 401');
+          cb(401);
+        }
       }
     });
   }
@@ -65,7 +78,7 @@ class AuthStore extends EventEmitter {
     // Clear local storage
     localStorage.clear();
 
-    browserHistory.push('/');
+    // browserHistory.push('/');
     this.emit("change");
   }
 
@@ -73,7 +86,7 @@ class AuthStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "LOGIN": {
-        this.login(action.email, action.password);
+        this.login(action.email, action.password, action.cb);
       }
       case "LOGOUT": {
         this.logout();

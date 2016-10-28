@@ -3,6 +3,9 @@ import { browserHistory } from 'react-router';
 
 import moment from 'moment';
 
+import AuthStore from '../../../stores/AuthStore';
+import * as AuthActions from '../../../actions/AuthActions';
+
 import EventForm from '../../../components/Admin/EventForm';
 
 export default class EditEvent extends React.Component {
@@ -14,12 +17,13 @@ export default class EditEvent extends React.Component {
       locations: [],
       event: {
         location: {
-          _id: "",
-          name: ""
+          _id: '',
+          name: ''
         },
         startDateTime: moment(Date.now()).format(),
         endDateTime: moment(Date.now()).add(2, 'hours').format()
-      }
+      },
+      errors: false
     }
   }
 
@@ -42,17 +46,24 @@ export default class EditEvent extends React.Component {
 
   _handleSubmit(newEvent) {
 
-    // Add Event
+    newEvent._id = this.state.event._id;
+    console.log('Updated Location', newEvent);
+
+    // Edit Event
     $.ajax({
-      async: true,
       method: 'PUT',
-      contentType: "application/json",
+      contentType: 'application/json',
+      dataType: 'json',
       url: `/api/event/edit/${this.props.params.id}`,
-      headers: { 'Authorization': localStorage.getItem('token') },
+      headers: { 'Authorization': AuthStore.getToken() },
       data: JSON.stringify(newEvent),
       success: (data) => {
         // Route the user back to the admin locations page
+        console.log('Success!');
         browserHistory.push('/admin/events');
+      },
+      error: (error) => {
+        console.log('Error', error);
       }
     });
 
@@ -61,7 +72,7 @@ export default class EditEvent extends React.Component {
   render() {
     return (
       <div class="editEvent">
-        <EventForm title='Edit' event={this.state.event} submitMethod={::this._handleSubmit}/>
+        <EventForm title='Edit' event={this.state.event} errors={this.state.errors} submitMethod={::this._handleSubmit}/>
       </div>
     );
   }

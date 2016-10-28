@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken'),
 // TO-DO Add issuer and audience
 function generateToken(user) {
   return jwt.sign(user, config.secret, {
-    expiresIn: 10080 // in seconds
+    expiresIn: 1209600 // ~ two weeks, in seconds
   });
 }
 

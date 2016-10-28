@@ -1,10 +1,11 @@
 import dispatcher from '../dispatcher';
 
-export function login(email, password) {
+export function login(email, password, cb) {
   dispatcher.dispatch({
     type: 'LOGIN',
     email,
-    password
+    password,
+    cb
   });
 }
 

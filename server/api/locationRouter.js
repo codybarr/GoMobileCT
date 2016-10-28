@@ -11,6 +11,11 @@ const AuthenticationController = require('../controllers/authentication'),
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
 
+
+/*
+ * Public Routes
+ */
+
 // GET route to retrieve existing locations
 
 locationRouter.get('/locations', function(req, res) {
@@ -22,10 +27,6 @@ locationRouter.get('/locations', function(req, res) {
     }
   });
 });
-
-/*
- * Public Routes
- */
 
 // GET route to retrieve all location names and IDs only
 // TODO: figure out a way to enable the standard location GET route to digest
@@ -59,13 +60,13 @@ locationRouter.get('/location/:id', function(req, res) {
  * Protected Routes
  */
 
-// POST route to create new entries
+// POST route to add new entries
 
 locationRouter.post('/location/add', requireAuth, function(req, res) {
   var location = req.body;
   Location.create(location, function(err, location) {
     if (err) {
-      return res.status(500).json({err: err.message});
+      return res.status(500).json({errors: err.errors});
     }
     res.json({location: location, message: 'Location created!'});
   });
@@ -78,9 +79,9 @@ locationRouter.put('/location/edit/:id', requireAuth, function(req, res) {
   var location = req.body;
 
   // {new: true} returns the updated document rather than the original one
-  Location.findByIdAndUpdate(id, location, {new: true}, function(err, location) {
+  Location.findByIdAndUpdate(id, location, {new: true, runValidators: true}, function(err, location) {
     if (err) {
-      return res.status(500).json({err: err.message});
+      return res.status(500).json({errors: err.errors});
     }
     res.json({location: location, message: 'Location updated'});
   });

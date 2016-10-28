@@ -29,13 +29,12 @@ import EditEvent from './Pages/Admin/Edit/EditEvent';
 
 function requireAuth(nextState, replace) {
   if (!AuthStore.loggedIn()) {
-    // replaceState({ nextPathname: nextState.location.pathname }, '/user/login')
     replace({ pathname: '/user/login', state: { error: 'You need to login to access this page.' } });
   }
 }
 
-function checkedLoggedIn(nextState, replace) {
-  if (AuthStore.loggedIn()) {
+function checkLoggedIn(nextState, replace) {
+  if (AuthStore.loggedIn()) {  
     replace({ pathname: '/admin', state: { alert: "You're already logged in silly goose!"}});
   }
 }
@@ -50,7 +49,7 @@ ReactDOM.render(
 
       <Route path='user' name='user' component={User}>
         <IndexRedirect to='login' />
-        <Route path='login' component={Login} onEnter={checkedLoggedIn}/>
+        <Route path='login' component={Login} onEnter={checkLoggedIn}/>
       </Route>
 
       <Route path='admin' name='admin' component={Admin} onEnter={requireAuth}>
