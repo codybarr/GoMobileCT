@@ -10,7 +10,13 @@ var eventSchema = new mongoose.Schema({
   },
   startDateTime: {
     type: Date,
-    required: 'Start Date / Time is required'
+    required: 'Start Date / Time is required',
+    validate: {
+      validator: function(v) {
+        return (new Date(v) !== "Invalid Date");
+      },
+      message: 'Start Date / Time is invalid!'
+    }
   },
   endDateTime: {
     type: Date,

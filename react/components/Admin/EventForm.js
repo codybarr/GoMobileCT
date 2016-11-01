@@ -71,16 +71,14 @@ export default class EventForm extends React.Component {
   }
 
   _getErrors() {
-    var errors = [];
-    var order = ["location", "startDateTime", "endDateTime"];
+    let errors = [];
+    // var order = ["location", "startDateTime", "endDateTime"];
 
-    if (this.props.errors) {
-      console.log('Errors', this.props.errors);
-      console.log('Object.keys', Object.keys(this.props.errors));
-      errors = Object.keys(this.props.errors).sort( (a, b) => {
-        return order.indexOf(a) - order.indexOf(b);
-      }).map( (error) => {
-        return (<li key={error}>{this.props.errors[error].message}</li>);
+    if (this.state.errors) {
+      errors = this.state.errors.map( (error, index) => {
+        return (
+          <li key={index}>{error}</li>
+        );
       });
 
       return (
@@ -91,6 +89,20 @@ export default class EventForm extends React.Component {
     } else {
       return null;
     }
+
+    // if (this.props.errors) {
+    //   console.log('Errors', this.props.errors);
+    //   console.log('Object.keys', Object.keys(this.props.errors));
+    //   errors = Object.keys(this.props.errors).sort( (a, b) => {
+    //     return order.indexOf(a) - order.indexOf(b);
+    //   }).map( (error) => {
+    //     return (<li key={error}>{this.props.errors[error].message}</li>);
+    //   });
+    //
+    //
+    // } else {
+    //   return null;
+    // }
   }
 
   render() {
@@ -148,17 +160,51 @@ export default class EventForm extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
+    let error = false;
+    let errors = [];
 
     const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
+
     let startDate = moment(this._startDate.value + ' ' + this._startTime.value, dateTimeFormat);
+    // if (!startDate.isValid()) startDate = '';
+
     let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);
+    // if (!endDate.isValid()) endDate = '';
+
+    console.log('location', this._location.value);
+
+
+    // TODO: Currently error handling for events is all client side
+    // I wasn't able to figure out how to handle exception errors for ObjectId
+    // and ISODate fields, if you pass an empty string as a date to your model,
+    // it'll only return a single Object with a CastError...
+    if (this._location.value === '') {
+      errors.push('Please select a location');
+      error = true;
+    }
+
+    if (!startDate.isValid()) {
+      errors.push('Start Date / Time is Invalid');
+      error = true;
+    }
+
+    if (!endDate.isValid()) {
+      errors.push('End Date / Time is Invalid');
+      error = true;
+    }
 
     let newEvent = {
       location: this._location.value,
-      startDateTime: startDate.utc().format(),
-      endDateTime: endDate.utc().format()
+      startDateTime: startDate.isValid() ? startDate.utc().format() : '',
+      endDateTime: endDate.isValid() ? endDate.utc().format() : ''
     };
 
-    this.props.submitMethod(newEvent);
+    if (error) {
+      // TODO: Need to have the view render the new event here, currently it's still pulling from props
+      this.setState({ errors: errors, event: newEvent });
+    } else {
+      this.props.submitMethod(newEvent);
+    }
+
   }
 }

@@ -40,6 +40,24 @@ router(app);
 // app.use(flash()); // use connect-flash for flash messages stored in session
 
 
+// Error handler?
+if (app.get('env') === 'development') {
+
+  // app.use(function(err, req, res, next) {
+  //   console.error(err.stack);
+  //   res.status(500).send('Something broke!');
+  // });
+
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
+  });
+}
+
+
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', (req, res) => {

@@ -22,8 +22,7 @@ export default class EditEvent extends React.Component {
         },
         startDateTime: moment(Date.now()).format(),
         endDateTime: moment(Date.now()).add(2, 'hours').format()
-      },
-      errors: false
+      }
     }
   }
 
@@ -53,7 +52,6 @@ export default class EditEvent extends React.Component {
     $.ajax({
       method: 'PUT',
       contentType: 'application/json',
-      dataType: 'json',
       url: `/api/event/edit/${this.props.params.id}`,
       headers: { 'Authorization': AuthStore.getToken() },
       data: JSON.stringify(newEvent),
@@ -62,8 +60,17 @@ export default class EditEvent extends React.Component {
         console.log('Success!');
         browserHistory.push('/admin/events');
       },
-      error: (error) => {
-        console.log('Error', error);
+      error: (xhr) => {
+        // console.log(xhr.responseJSON);
+        if (xhr.status == 401) {
+          AuthActions.logout();
+          browserHistory.push({
+            pathname: '/user/login',
+            state: {
+              error: 'Your session has expired, please login again'
+            }
+          });
+        }
       }
     });
 

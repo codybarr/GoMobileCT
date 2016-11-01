@@ -71,10 +71,7 @@ eventRouter.post('/event/add', requireAuth, function(req, res) {
 
   Event.create(event, function(err, event) {
     if (err) {
-      console.log('EventRouter Error before', err);
-      err = handleError(err);
-      console.log('EventRouter Error after', err);
-      return res.status(500).json({errors: err.errors});
+      return res.status(500).json({error: err.message});
     }
     res.json({event: event, message: 'Event created!'});
   });
@@ -90,10 +87,8 @@ eventRouter.put('/event/edit/:id', requireAuth, function(req, res) {
   // {new: true} returns the updated document rather than the original one
   Event.findByIdAndUpdate(id, event, {new: true, runValidators: true}, function(err, event) {
     if (err) {
-      // console.log('EventRouter Error before', err);
-      // err = handleError(err);
-      // console.log('EventRouter Error after', err);
-      return res.status(500).json({errors: err});
+      console.log(err);
+      return res.status(500).json({errors: err.errors});
     }
     res.json({event: event, message: 'Location updated'});
   });
