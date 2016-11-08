@@ -27,7 +27,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/i,
+        test: /\.s?css$/i,
         loader: extractCSS.extract(['css','sass'])
       }
     ]
@@ -36,7 +36,7 @@ module.exports = {
     path: __dirname + "/public/",
     filename: "client.min.js"
   },
-  plugins: debug ? [extractCSS] : [
+  plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),

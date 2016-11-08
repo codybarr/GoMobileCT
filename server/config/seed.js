@@ -40,7 +40,7 @@ locations.forEach(function(location, index) {
           Event.create({
             location: newLocation._id,
             startDateTime: moment(Date.now()).utc().add(i, 'hours').toISOString(),
-            endDateTime: moment(Date.now()).utc().add(i + 2, 'hours').toISOString()
+            endDateTime: moment(Date.now()).utc().add(i + 6, 'hours').toISOString()
           }, function(err, newEvent) {
             if (err) {
               console.log(err);
