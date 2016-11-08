@@ -29,11 +29,21 @@ userSchema.pre('save', function(next) {
 
   if (!user.isModified('password')) return next();
 
-  bcrypt.hash(user.password, SALT_FACTOR, function(err, hash) {
-    if (err) return next(err);
-    user.password = hash;
-    next();
+  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+  if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, null, function(err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
   });
+
+  // bcrypt.hash(user.password, SALT_FACTOR, function(err, hash) {
+  //   if (err) return next(err);
+  //   user.password = hash;
+  //   next();
+  // });
 });
 
 // ## Methods ##
