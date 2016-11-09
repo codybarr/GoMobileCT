@@ -97,7 +97,7 @@ export default class EventList extends React.Component {
             </tbody>
           </table>
         </div>
-        <Link to='/admin/add/event' class='btn btn-success'>Add Event</Link>
+        <Link to='/admin/add/event' class='btn btn-raised btn-success'>Add Event</Link>
       </div>
     );
   }

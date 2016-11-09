@@ -138,7 +138,7 @@ export default class LocationList extends React.Component {
             </tbody>
           </table>
         </div>
-        <Link to='/admin/add/location' class='btn btn-success'>Add Location</Link>
+        <Link to='/admin/add/location' class='btn btn-raised btn-success'>Add Location</Link>
       </div>
     );
   }

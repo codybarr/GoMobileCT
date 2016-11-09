@@ -121,7 +121,7 @@ export default class LocationForm extends React.Component {
               <input type="hidden" ref={(lng) => this._lng = lng} defaultValue={location.latlng.lng} />
             </div>
             <div class="col-sm-2">
-              <button type="submit" class="btn btn-default" onClick={::this._codeAddress}>Search</button>
+              <button type="submit" class="btn btn-raised btn-default" onClick={::this._codeAddress}>Search</button>
             </div>
           </div>
 
@@ -139,7 +139,7 @@ export default class LocationForm extends React.Component {
 
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
-              <button type="submit" class="btn btn-primary">{title} Location</button>
+              <button type="submit" class="btn btn-raised btn-primary">{title} Location</button>
             </div>
           </div>
         </form>

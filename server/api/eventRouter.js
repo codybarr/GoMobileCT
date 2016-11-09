@@ -64,6 +64,10 @@ eventRouter.get('/event/:eventid', function(req, res) {
  * Protected Routes
  */
 
+// Error handleError
+
+// handleEventer
+
 // POST route to create new entries
 
 eventRouter.post('/event/add', requireAuth, function(req, res) {
@@ -71,7 +75,7 @@ eventRouter.post('/event/add', requireAuth, function(req, res) {
 
   Event.create(event, function(err, event) {
     if (err) {
-      return res.status(500).json({error: err.message});
+      return res.status(500).json({errors: err.errors});
     }
     res.json({event: event, message: 'Event created!'});
   });
@@ -88,7 +92,7 @@ eventRouter.put('/event/edit/:id', requireAuth, function(req, res) {
   Event.findByIdAndUpdate(id, event, {new: true, runValidators: true}, function(err, event) {
     if (err) {
       console.log(err);
-      return res.status(500).json({errors: err.errors});
+      return res.status(500).json({errors: err});
     }
     res.json({event: event, message: 'Location updated'});
   });

@@ -19,9 +19,9 @@ export default class LocationListItem extends React.Component {
         <td>{location.description}</td>
         <td style={noWrap} class="location-date">{date}</td>
         <td style={noWrap} class="location-actions">
-          <Link to={{ pathname: `/admin/location/${location._id}`, state: {location: location}}} class="btn btn-primary btn-xs">Edit</Link>
+          <Link to={{ pathname: `/admin/location/${location._id}`, state: {location: location}}} class="btn btn-raised btn-primary btn-xs">Edit</Link>
           &nbsp;
-          <button class="btn btn-danger btn-xs" onClick={::this._handleDelete}>Delete</button>
+          <button class="btn btn-raised btn-danger btn-xs" onClick={::this._handleDelete}>Delete</button>
         </td>
       </tr>
     );
