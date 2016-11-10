@@ -1,16 +1,6 @@
 var mongoose = require('mongoose');
-var validate = require('mongoose-validator');
 
 // mongoose.Error.messages.general.default = '`{VALUE} is not a valid value for `{PATH}`';
-
-// Validators
-
-var dateValidator = [
-  validate({
-    validator: 'isDate',
-    message: '{PATH} is invalid.'
-  })
-];
 
 // Schema
 
@@ -23,7 +13,6 @@ var eventSchema = new mongoose.Schema({
   startDateTime: {
     type: Date,
     required: 'Start Date / Time is required',
-    validate: dateValidator
   },
   endDateTime: {
     type: Date,
@@ -33,6 +22,13 @@ var eventSchema = new mongoose.Schema({
 {
   timestamps: true
 });
+
+// Middleware
+eventSchema.post('save', function(error, doc, next) {
+  next(error);
+});
+
+
 
 var Event = mongoose.model('Event', eventSchema);
 

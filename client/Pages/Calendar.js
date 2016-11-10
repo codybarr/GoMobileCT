@@ -55,7 +55,7 @@ export default class Calendar extends React.Component {
       for (var day in weeksEvents) { // iterate over new weeksEvents object
         let daysEvents = weeksEvents[day].map( (event) => {
           return (
-            <div class="panel panel-primary" key={event._id}>
+            <div class="panel panel-info" key={event._id}>
               <div class="panel-heading"><h3 class="panel-title">{event.location.name}</h3></div>
               <div class="panel-body">
                 {moment(event.startDateTime).format('h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
@@ -81,7 +81,7 @@ export default class Calendar extends React.Component {
   }
 
   render() {
-    
+
     const today = moment(new Date);
     const startOfWeek = today.clone().startOf('week');
     const dateFormat = 'M/D';
@@ -93,7 +93,7 @@ export default class Calendar extends React.Component {
       <div class="calendar">
         <h2>Calendar</h2>
 
-        <div>
+        <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>

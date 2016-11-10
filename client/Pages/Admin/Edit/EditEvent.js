@@ -70,6 +70,8 @@ export default class EditEvent extends React.Component {
               error: 'Your session has expired, please login again'
             }
           });
+        } else {
+          this.setState({ errors: xhr.responseJSON.errors, event: newEvent});
         }
       }
     });

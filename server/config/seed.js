@@ -36,11 +36,11 @@ locations.forEach(function(location, index) {
     if (!err && !locations.length) {
       Location.create(location, function(err, newLocation) {
         console.log('Location "%s" was created!', newLocation._id);
-        for (var i = 1; i < 5; i++) {
+        for (var i = 0; i < 5; i++) {
           Event.create({
             location: newLocation._id,
-            startDateTime: moment(Date.now()).utc().add(i, 'hours').toISOString(),
-            endDateTime: moment(Date.now()).utc().add(i + 6, 'hours').toISOString()
+            startDateTime: moment(Date.now()).utc().add(i * 12, 'hours').toISOString(),
+            endDateTime: moment(Date.now()).utc().add(i * 12 + 8, 'hours').toISOString()
           }, function(err, newEvent) {
             if (err) {
               console.log(err);

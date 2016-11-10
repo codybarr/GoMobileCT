@@ -26,7 +26,7 @@ export default class AddEvent extends React.Component {
     }
   }
 
-  _handleSubmit(newEvent) {
+  _handleSubmit() {
 
     // Add Event
     $.ajax({
@@ -50,7 +50,7 @@ export default class AddEvent extends React.Component {
             }
           });
         } else {
-          this.setState({ errors: xhr.responseJSON.errors, event: newEvent });
+          this.setState({ errors: xhr.responseJSON.errors});
         }
       }
     });

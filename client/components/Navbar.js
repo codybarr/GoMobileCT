@@ -66,7 +66,7 @@ export default class Navbar extends React.Component {
     const userActions = this._getUserActions();
 
     return (
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <nav class="navbar navbar-info navbar-fixed-top" role="navigation">
         <div class="container">
 
           <div class="navbar-header">

@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
+import { Link } from 'react-router';
+
 export default class EventForm extends React.Component {
 
   constructor() {
@@ -58,12 +60,12 @@ export default class EventForm extends React.Component {
     const timeFormat='hh:mm A'
 
     this._location.value = event.location._id;
-    this._startDate.value = moment(event.startDateTime).format(dateFormat);
-    this._startTime.value = moment(event.startDateTime).format(timeFormat);
+    this._startDate.value = moment(event.startDateTime).isValid() ? moment(event.startDateTime).format(dateFormat) : '';
+    this._startTime.value = moment(event.startDateTime).isValid() ? moment(event.startDateTime).format(timeFormat) : '';
     $('#startDate').datepicker('setDate', moment(event.startDateTime).format(dateFormat));
 
-    this._endDate.value = moment(event.endDateTime).format(dateFormat);
-    this._endTime.value = moment(event.endDateTime).format(timeFormat);
+    this._endDate.value = moment(event.endDateTime).isValid() ? moment(event.endDateTime).format(dateFormat) : '';
+    this._endTime.value = moment(event.endDateTime).isValid() ? moment(event.endDateTime).format(timeFormat) : '';
     $('#endDate').datepicker('setDate', moment(event.endDateTime).format(dateFormat));
 
     // this._startDate.value = moment(event.startDateTime).format(dateFormat);
@@ -71,14 +73,17 @@ export default class EventForm extends React.Component {
   }
 
   _getErrors() {
-    let errors = [];
-    // var order = ["location", "startDateTime", "endDateTime"];
 
-    if (this.state.errors) {
-      errors = this.state.errors.map( (error, index) => {
-        return (
-          <li key={index}>{error}</li>
-        );
+    var errors = [];
+    var order = ["location", "startDateTime", "endDateTime"];
+
+    if (this.props.errors) {
+      console.log('Object.keys', Object.keys(this.props.errors));
+
+      errors = Object.keys(this.props.errors).sort( (a, b) => {
+        return order.indexOf(a) - order.indexOf(b);
+      }).map( (error) => {
+        return (<li key={error}>{this.props.errors[error].message}</li>);
       });
 
       return (
@@ -90,19 +95,25 @@ export default class EventForm extends React.Component {
       return null;
     }
 
-    // if (this.props.errors) {
-    //   console.log('Errors', this.props.errors);
-    //   console.log('Object.keys', Object.keys(this.props.errors));
-    //   errors = Object.keys(this.props.errors).sort( (a, b) => {
-    //     return order.indexOf(a) - order.indexOf(b);
-    //   }).map( (error) => {
-    //     return (<li key={error}>{this.props.errors[error].message}</li>);
+    // let errors = [];
+    // // var order = ["location", "startDateTime", "endDateTime"];
+    //
+    // if (this.state.errors) {
+    //   errors = this.state.errors.map( (error, index) => {
+    //     return (
+    //       <li key={index}>{error}</li>
+    //     );
     //   });
     //
-    //
+    //   return (
+    //     <div class="alert alert-danger col-sm-10 col-sm-offset-2">
+    //       <ul>{errors}</ul>
+    //     </div>
+    //   );
     // } else {
     //   return null;
     // }
+
   }
 
   render() {
@@ -112,6 +123,12 @@ export default class EventForm extends React.Component {
 
     return (
       <div class="eventForm">
+        <ul class="breadcrumb" style={{marginBottom: 5}}>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/admin'>Admin</Link></li>
+          <li><Link to='/admin/events'>Events</Link></li>
+        </ul>
+
         <h2>{title} Event</h2>
 
         {errors}
@@ -160,8 +177,6 @@ export default class EventForm extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
-    let error = false;
-    let errors = [];
 
     const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
 
@@ -171,40 +186,12 @@ export default class EventForm extends React.Component {
     let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);
     // if (!endDate.isValid()) endDate = '';
 
-    console.log('location', this._location.value);
-
-
-    // TODO: Currently error handling for events is all client side
-    // I wasn't able to figure out how to handle exception errors for ObjectId
-    // and ISODate fields, if you pass an empty string as a date to your model,
-    // it'll only return a single Object with a CastError...
-    if (this._location.value === '') {
-      errors.push('Please select a location');
-      error = true;
-    }
-
-    if (!startDate.isValid()) {
-      errors.push('Start Date / Time is Invalid');
-      error = true;
-    }
-
-    if (!endDate.isValid()) {
-      errors.push('End Date / Time is Invalid');
-      error = true;
-    }
-
     let newEvent = {
       location: this._location.value,
-      startDateTime: startDate.isValid() ? startDate.utc().format() : '',
-      endDateTime: endDate.isValid() ? endDate.utc().format() : ''
+      startDateTime: startDate.utc().format(),
+      endDateTime: endDate.utc().format()
     };
 
-    if (error) {
-      // TODO: Need to have the view render the new event here, currently it's still pulling from props
-      this.setState({ errors: errors, event: newEvent });
-    } else {
-      this.props.submitMethod(newEvent);
-    }
-
+    this.props.submitMethod(newEvent);
   }
 }

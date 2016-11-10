@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 export default class LocationForm extends React.Component {
 
@@ -101,7 +101,13 @@ export default class LocationForm extends React.Component {
     const errors = this._getErrors();
 
     return (
-      <div class="add-location">
+      <div class="location-form">
+        <ul class="breadcrumb" style={{marginBottom: 5}}>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/admin'>Admin</Link></li>
+          <li><Link to='/admin/locations'>Locations</Link></li>
+        </ul>
+
         <h2>{title} Location</h2>
 
         {errors}

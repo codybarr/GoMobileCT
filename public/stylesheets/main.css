@@ -1,5 +1,8 @@
 .calendar table th {
   text-align: center; }
+body {
+  background-color: white; }
+
 nav {
   background-color: purple; }
 

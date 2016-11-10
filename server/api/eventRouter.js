@@ -64,10 +64,6 @@ eventRouter.get('/event/:eventid', function(req, res) {
  * Protected Routes
  */
 
-// Error handleError
-
-// handleEventer
-
 // POST route to create new entries
 
 eventRouter.post('/event/add', requireAuth, function(req, res) {
@@ -86,15 +82,30 @@ eventRouter.post('/event/add', requireAuth, function(req, res) {
 
 eventRouter.put('/event/edit/:id', requireAuth, function(req, res) {
   var id = req.params.id;
-  var event = req.body;
+  var updatedEvent = req.body;
 
   // {new: true} returns the updated document rather than the original one
-  Event.findByIdAndUpdate(id, event, {new: true, runValidators: true}, function(err, event) {
+  Event.findById(id, function(err, event) {
     if (err) {
       console.log(err);
-      return res.status(500).json({errors: err});
+      return res.status(500).json({errors: err.errors});
+    } else {
+      // event.merge
+      // event.location = updatedEvent.location;
+      // event.startDateTime = updatedEvent.startDateTime;
+      // event.endDateTime = updatedEvent.endDateTime;
+      Object.assign(event, updatedEvent);
+
+      event.save( function(err) {
+        if (err) {
+          console.error(err);
+          err = handleError(err);
+          return res.status(500).json({errors: err.errors});
+        }
+
+        res.json({event: event, message: 'Event updated!'});
+      });
     }
-    res.json({event: event, message: 'Location updated'});
   });
 });
 
@@ -105,7 +116,7 @@ eventRouter.delete('/event/:id', requireAuth, function(req, res) {
     if (err) {
       return res.status(500).json({err: err.message});
     }
-    res.json({event: event, message: 'Location removed!'});
+    res.json({event: event, message: 'Event removed!'});
   });
 });
 
