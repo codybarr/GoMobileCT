@@ -97,7 +97,8 @@ export default class MapContainer extends React.Component {
 
   render() {
     const style = {
-      height: 400
+      height: 400,
+      marginBottom: 20
     }
 
     return (

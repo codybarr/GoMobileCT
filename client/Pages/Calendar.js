@@ -11,28 +11,68 @@ export default class Calendar extends React.Component {
     super();
 
     this.state = {
-      events: []
+      events: [],
+      currentDate: moment(new Date)
     };
   }
 
   componentDidMount() {
-    axios.get('/api/events')
+    this._updateDateEvents(moment(new Date));
+  }
+
+  // componentWillUpdate() {
+  //   this._updateDateEvents();
+  // }
+
+  // componentDidUpdate() {
+  //   this._updateDateEvents();
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // return !this.state.currentDate.isSame(nextState.currentDate, 'day');
+  //   return this.state.events !== nextState.events;
+  // }
+
+  _updateDateEvents(newDate) {
+
+    axios.get(`/api/events/week/${newDate.format('YYYY-MM-DD')}`)
       .then( (response) => {
-        this.setState({ events: response.data.events});
+        this.setState({ events: response.data.events, currentDate: newDate});
       });
   }
 
-  componentDidUpdate() {
+  _getTableHeaders(currentDate) {
+    // <th class={`day sunday ${today.isSame(startOfWeek, 'day') && 'active'}`}>{startOfWeek.format(dateFormat)}<br/>{startOfWeek.format(weekdayFormat)}</th>
+    // <th class={`day monday ${today.format('dddd') === 'Monday' && 'active'}`}>{startOfWeek.clone().add(1, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(1, 'days').format(weekdayFormat)}</th>
+    // <th class={`day tuesday ${today.format('dddd') === 'Tuesday' && 'active'}`}>{startOfWeek.clone().add(2, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(2, 'days').format(weekdayFormat)}</th>
+    // <th class={`day wednesday ${today.format('dddd') === 'Wednesday' && 'active'}`}>{startOfWeek.clone().add(3, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(3, 'days').format(weekdayFormat)}</th>
+    // <th class={`day thursday ${today.format('dddd') === 'Thursday' && 'active'}`}>{startOfWeek.clone().add(4, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(4, 'days').format(weekdayFormat)}</th>
+    // <th class={`day friday ${today.format('dddd') === 'Friday' && 'active'}`}>{startOfWeek.clone().add(5, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(5, 'days').format(weekdayFormat)}</th>
+    // <th class={`day saturday {today.format('dddd') === 'Saturday' && 'active'}`}>{startOfWeek.clone().add(6, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(6, 'days').format(weekdayFormat)}</th>
 
+    const dateFormat = 'M/D';
+    const weekdayFormat = 'ddd';
+
+    let headers = [];
+    let today = moment(new Date);
+    let startOfWeek = currentDate.startOf('week');
+    let day;
+
+    for (var i = 0; i < 7; i++) {
+      day = startOfWeek.clone().add(i, 'days');
+
+      headers.push(
+        <th key={i} class={`day ${day.format('dddd').toLowerCase} ${today.isSame(day, 'day') && 'active'}`}>{day.format(dateFormat)}<br/>{day.format(weekdayFormat)}</th>
+      );
+    }
+
+    console.log('headers', headers);
+    return headers;
   }
 
-  _daysEvents(day) {
-    return
-  }
+  _getEvents(currentDate) {
 
-  _getEvents() {
-
-    let startOfWeek = moment(new Date).startOf('week');
+    let startOfWeek = currentDate.startOf('week');
     let weeksEvents = {
       'Sunday': [],
       'Monday': [],
@@ -58,7 +98,23 @@ export default class Calendar extends React.Component {
             <div class="panel panel-info" key={event._id}>
               <div class="panel-heading"><h3 class="panel-title">{event.location.name}</h3></div>
               <div class="panel-body">
-                {moment(event.startDateTime).format('h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
+                <div class="row">
+                  <div class="col-md-4">
+                    <strong>Address:</strong>
+                  </div>
+                  <div class="col-md-8">
+                    {event.location.address}
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-md-4">
+                    <strong>Time:</strong>
+                  </div>
+                  <div class="col-md-8">
+                   {moment(event.startDateTime).format('h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
+                  </div>
+                </div>
               </div>
             </div>
           );
@@ -81,29 +137,25 @@ export default class Calendar extends React.Component {
   }
 
   render() {
-
-    const today = moment(new Date);
-    const startOfWeek = today.clone().startOf('week');
-    const dateFormat = 'M/D';
-    const weekdayFormat = 'ddd';
-
-    const events = this._getEvents();
+    const tableHeaders = this._getTableHeaders(this.state.currentDate);
+    const events = this._getEvents(this.state.currentDate);
 
     return (
       <div class="calendar">
         <h2>Calendar</h2>
 
+        <nav aria-label="week-controls">
+          <ul class="pager">
+            <li class="previous"><a href="#" onClick={::this._previousWeek}><span aria-hidden="true">&larr;</span> Previous Week</a></li>
+            <li class="next"><a href="#" onClick={::this._nextWeek}>Next Week <span aria-hidden="true">&rarr;</span></a></li>
+          </ul>
+        </nav>
+
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th class={`day sunday ${today.format('dddd') === 'Sunday' && 'active'}`}>{startOfWeek.format(dateFormat)}<br/>{startOfWeek.format(weekdayFormat)}</th>
-                <th class={`day monday ${today.format('dddd') === 'Monday' && 'active'}`}>{startOfWeek.clone().add(1, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(1, 'days').format(weekdayFormat)}</th>
-                <th class={`day tuesday ${today.format('dddd') === 'Tuesday' && 'active'}`}>{startOfWeek.clone().add(2, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(2, 'days').format(weekdayFormat)}</th>
-                <th class={`day wednesday ${today.format('dddd') === 'Wednesday' && 'active'}`}>{startOfWeek.clone().add(3, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(3, 'days').format(weekdayFormat)}</th>
-                <th class={`day thursday ${today.format('dddd') === 'Thursday' && 'active'}`}>{startOfWeek.clone().add(4, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(4, 'days').format(weekdayFormat)}</th>
-                <th class={`day friday ${today.format('dddd') === 'Friday' && 'active'}`}>{startOfWeek.clone().add(5, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(5, 'days').format(weekdayFormat)}</th>
-                <th class={`day saturday {today.format('dddd') === 'Saturday' && 'active'}`}>{startOfWeek.clone().add(6, 'days').format(dateFormat)}<br/>{startOfWeek.clone().add(6, 'days').format(weekdayFormat)}</th>
+                {tableHeaders}
               </tr>
             </thead>
             <tbody>
@@ -116,4 +168,14 @@ export default class Calendar extends React.Component {
       </div>
     );
   }
+
+  _nextWeek() {
+    this._updateDateEvents(this.state.currentDate.clone().add(1, 'week'))
+    // this.setState({currentDate: this.state.currentDate.add(1, 'week')});
+  }
+
+  _previousWeek() {
+    this._updateDateEvents(this.state.currentDate.clone().subtract(1, 'week'))
+  }
+
 }

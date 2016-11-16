@@ -34,15 +34,15 @@ function requireAuth(nextState, replace) {
 }
 
 function checkLoggedIn(nextState, replace) {
-  if (AuthStore.loggedIn()) {  
+  if (AuthStore.loggedIn()) {
     replace({ pathname: '/admin', state: { alert: "You're already logged in silly goose!"}});
   }
 }
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path='/' component={Layout}>
-      <IndexRoute component={Home}></IndexRoute>
+    <Route path='/'component={Home}></Route>
+    <Route component={Layout}>
       <Route path='locations' name='locations' component={Locations} />
       <Route path='calendar' name='calendar' component={Calendar} />
       <Route path='calculator' name='pregnancyCalculator' component={PregnancyCalculator} />

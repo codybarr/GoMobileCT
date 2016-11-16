@@ -21,7 +21,25 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 // populates the location
 eventRouter.get('/events', function(req, res) {
   Event.find({})
-    .populate('location', 'name')
+    .populate('location', 'name address')
+    .exec(function(err, events) {
+      if (err) {
+        return res.status(500).json({message: err.message});
+      } else {
+        res.json({events: events});
+      }
+    });
+});
+
+// GET route to retrieve events for the current week
+// given a provided Date
+eventRouter.get('/events/week/:date', function(req, res) {
+  let providedDate = req.params.date;
+
+  Event.find()
+    .where('startDateTime').gt(moment(providedDate).startOf('week').format())
+    .where('startDateTime').lt(moment(providedDate).endOf('week').format())
+    .populate('location', 'name address')
     .exec(function(err, events) {
       if (err) {
         return res.status(500).json({message: err.message});

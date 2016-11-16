@@ -145,7 +145,7 @@ export default class LocationForm extends React.Component {
 
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
-              <button type="submit" class="btn btn-raised btn-primary">{title} Location</button>
+              <button type="submit" class="btn btn-raised btn-success">{title} Location</button>
             </div>
           </div>
         </form>

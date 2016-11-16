@@ -3,7 +3,40 @@
 body {
   background-color: white; }
 
-nav {
-  background-color: purple; }
+.home {
+  /* Sticky footer styles
+  -------------------------------------------------- */ }
+  .home .parallax {
+    color: white;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .home .parallax .parallax-content {
+      text-align: center; }
+  .home .featured-item {
+    padding: 20px; }
+    .home .featured-item i.mobile {
+      color: #F44336; }
+    .home .featured-item i.about {
+      color: #8BC34A; }
+    .home .featured-item i.expect {
+      color: #2196F3; }
+  .home footer .footer-box {
+    padding: 20px; }
+  .home html {
+    position: relative;
+    min-height: 100%; }
+  .home body {
+    /* Margin bottom by footer height */
+    margin-bottom: 300px; }
+  .home .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 300px;
+    display: flex;
+    align-items: center; }
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZXNoZWV0cy9tYWluLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/
