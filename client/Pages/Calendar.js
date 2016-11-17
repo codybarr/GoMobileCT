@@ -10,6 +10,8 @@ export default class Calendar extends React.Component {
   constructor() {
     super();
 
+    this.directionsUrl = `https://maps.google.com/maps?daddr=`;
+
     this.state = {
       events: [],
       currentDate: moment(new Date)
@@ -103,7 +105,7 @@ export default class Calendar extends React.Component {
                     <strong>Address:</strong>
                   </div>
                   <div class="col-md-8">
-                    {event.location.address}
+                    <a href={this.directionsUrl + event.location.address}>{event.location.address}</a>
                   </div>
                 </div>
                 <br/>

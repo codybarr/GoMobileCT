@@ -5,6 +5,8 @@ export default class InfoWindow extends React.Component {
 
   constructor() {
     super();
+
+    this.directionsUrl = `https://maps.google.com/maps?daddr=`;
   }
 
   _getEvents() {
@@ -43,7 +45,7 @@ export default class InfoWindow extends React.Component {
 
     let addressName;
     if (address) {
-      addressName = <p><strong>Address:</strong> {address}</p>;
+      addressName = <p><strong>Address:</strong> <a href={this.directionsUrl + address}>{address}</a></p>;
     } else {
       addressName = <p>Please select a location</p>
     }
