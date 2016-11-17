@@ -13,7 +13,7 @@ export default class InfoWindow extends React.Component {
     if (this.props.location && this.props.location.events && this.props.location.events.length) {
       events =  this.props.location.events.map( (event, index) => {
         return (
-          <li key={event._id}>
+          <li key={event._id} class="list-group-item">
             {moment(event.startDateTime).format('MMMM D, YYYY h:mm a')} - {moment(event.endDateTime).format('h:mm a')}
           </li>
         );
@@ -22,7 +22,7 @@ export default class InfoWindow extends React.Component {
       return (
         <div class="panel-body">
           <h3>Upcoming Events</h3>
-          <ul>
+          <ul class="list-group">
             {events}
           </ul>
         </div>

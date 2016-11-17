@@ -4,12 +4,15 @@ import { Router, IndexRoute, IndexRedirect, Route, browserHistory } from 'react-
 
 import AuthStore from './stores/AuthStore';
 
+import StaticLayout from './Pages/StaticLayout';
 import Layout from './Pages/Layout';
 
 import Home from './Pages/Home';
 import Locations from './Pages/Locations';
 import Calendar from './Pages/Calendar';
 import PregnancyCalculator from './Pages/PregnancyCalculator';
+import About from './Pages/About';
+
 import NotFound404 from './Pages/NotFound404';
 import NotAuthorized401 from './Pages/NotAuthorized401';
 
@@ -41,7 +44,10 @@ function checkLoggedIn(nextState, replace) {
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path='/'component={Home}></Route>
+    <Route component={StaticLayout}>
+      <Route path='/'component={Home}></Route>
+      <Route path='about' name='about' component={About} />
+    </Route>
     <Route component={Layout}>
       <Route path='locations' name='locations' component={Locations} />
       <Route path='calendar' name='calendar' component={Calendar} />

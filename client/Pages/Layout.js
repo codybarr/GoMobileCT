@@ -14,8 +14,6 @@ export default class Layout extends React.Component {
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>GoMobileCT</h1>
-
                     {this.props.children}
                 </div>
             </div>

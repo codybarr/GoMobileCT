@@ -4,7 +4,7 @@ import React from 'react';
 import InfoWindow from './InfoWindow';
 
 const ICON = {
-  active: '/images/ic_directions_bus_black_36px_blue.svg',
+  active: '/images/ic_directions_bus_black_36px_material_accent.svg',
   inactive: '/images/ic_directions_bus_black_36px.svg'
 };
 

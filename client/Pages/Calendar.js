@@ -142,7 +142,7 @@ export default class Calendar extends React.Component {
 
     return (
       <div class="calendar">
-        <h2>Calendar</h2>
+        <h1>Calendar</h1>
 
         <nav aria-label="week-controls">
           <ul class="pager">

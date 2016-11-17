@@ -31,7 +31,7 @@ export default class PregnancyCalculator extends React.Component {
 
     return (
       <form class="form-horizontal">
-        <h2>Pregnancy Calculator</h2>
+        <h1>Pregnancy Calculator</h1>
 
         <div class="form-group">
           <label class="col-sm-3 control-label">First Day of Last Menstrual Period</label>

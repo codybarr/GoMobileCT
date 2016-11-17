@@ -26,7 +26,7 @@ export default class AddEvent extends React.Component {
     }
   }
 
-  _handleSubmit() {
+  _handleSubmit(newEvent) {
 
     // Add Event
     $.ajax({

@@ -90,6 +90,9 @@ export default class Navbar extends React.Component {
               <li>
                 <Link to='/calculator'>Pregnancy Calculator</Link>
               </li>
+              <li>
+                <Link to='/about'>About Us</Link>
+              </li>
             </ul>
 
             {userActions}
