@@ -73,7 +73,6 @@ export default class LocationForm extends React.Component {
     var order = ["name", "address", "latlng.lat", "latlng.lng", "description"];
 
     if (this.props.errors) {
-      // console.log('Object.keys', Object.keys(this.props.errors));
       errors = Object.keys(this.props.errors).sort( (a, b) => {
         return order.indexOf(a) - order.indexOf(b);
       }).map( (error) => {

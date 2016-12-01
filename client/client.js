@@ -18,6 +18,7 @@ import NotAuthorized401 from './Pages/NotAuthorized401';
 
 import User from './Pages/User';
 import Login from './Pages/User/Login';
+import Profile from './Pages/User/Profile';
 
 import Admin from './Pages/Admin';
 
@@ -29,10 +30,18 @@ import EventList from './Pages/Admin/EventList';
 import AddEvent from './Pages/Admin/Add/AddEvent';
 import EditEvent from './Pages/Admin/Edit/EditEvent';
 
+import UserList from './Pages/Admin/UserList';
+
 
 function requireAuth(nextState, replace) {
   if (!AuthStore.loggedIn()) {
     replace({ pathname: '/user/login', state: { error: 'You need to login to access this page.' } });
+  }
+}
+
+function requireSuperadmin(nextState, replace) {
+  if (!AuthStore.isSuperAdmin()) {
+    replace({ pathname: '/admin', state: {alert: "You must be a Superadmin to access this section"}});
   }
 }
 
@@ -56,6 +65,7 @@ ReactDOM.render(
       <Route path='user' name='user' component={User}>
         <IndexRedirect to='login' />
         <Route path='login' component={Login} onEnter={checkLoggedIn}/>
+        <Route path='profile' component={Profile} onEnter={requireAuth}/>
       </Route>
 
       <Route path='admin' name='admin' component={Admin} onEnter={requireAuth}>
@@ -67,6 +77,10 @@ ReactDOM.render(
         <Route path='events' name='admin-events' component={EventList} />
         <Route path='add/event' name='add-event' component={AddEvent} />
         <Route path='event/:id' component={EditEvent} />
+
+        <Route onEnter={requireSuperadmin}>
+          <Route path='users' name='admin-users' component={UserList} />
+        </Route>
       </Route>
 
       <Route path='*' component={NotFound404} />

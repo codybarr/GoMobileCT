@@ -4,18 +4,27 @@ var bcrypt = require('bcrypt-nodejs');
 var userSchema = new mongoose.Schema({
   email: {
     type: String,
-    index: { unique: true },
-    required: true,
-    lowercase: true
+    required: 'Email is required',
+    lowercase: true,
+    validate: {
+      validator: function(v) {
+        return /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(v);
+      },
+      message: '{VALUE} is not a valid email!'
+    },
   },
   password: {
     type: String,
-    required: true
+    required: 'Password is required',
+    minlength: 8
   },
   role: {
     type: String,
-    enum: ['Client', 'Admin', 'Superadmin'],
-    default: 'Client'
+    required: 'Role is required',
+    enum: {
+      values: ['Client', 'Admin', 'Superadmin'],
+      message: 'Role must be one of "Client", "Admin" or "Superadmin"'
+    }
   }
 },
 {

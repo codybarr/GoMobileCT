@@ -54,6 +54,7 @@ export default class Navbar extends React.Component {
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{this.state.user.email} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><Link to='/admin'>Admin</Link></li>
+              <li><Link to='/user/profile'>My Profile</Link></li>
               <li><Link to='/user/logout' onClick={::this._handleLogout}>Logout</Link></li>
             </ul>
           </li>

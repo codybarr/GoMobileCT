@@ -78,7 +78,7 @@ class AuthStore extends EventEmitter {
     // Clear local storage
     localStorage.clear();
 
-    // browserHistory.push('/');
+    // browserHistory.push('/'); // TODO: causes a bug when failure to authenticate on login.
     this.emit("change");
   }
 

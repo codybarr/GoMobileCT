@@ -35,13 +35,14 @@ export default class Login extends React.Component {
     e.preventDefault();
 
     AuthActions.login(this._email.value, this._password.value, (error) => {
+
       if (error == 401) {
         this._email.value = '';
         this._password.value = '';
         browserHistory.push({
           pathname: '/user/login',
           state: { error: 'Invalid username or email. Please try again' }
-        })
+        });
       } else {
         // Successful Login!
         browserHistory.push('/admin');

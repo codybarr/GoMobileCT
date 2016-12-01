@@ -64,7 +64,7 @@ var users = [
   }
 ];
 
-// Delete Users
+// // Delete Users
 // User.remove({}, function() {
 //   console.log('Users removed!');
 // });

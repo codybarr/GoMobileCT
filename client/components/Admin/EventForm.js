@@ -78,8 +78,6 @@ export default class EventForm extends React.Component {
     var order = ["location", "startDateTime", "endDateTime"];
 
     if (this.props.errors) {
-      console.log('Object.keys', Object.keys(this.props.errors));
-
       errors = Object.keys(this.props.errors).sort( (a, b) => {
         return order.indexOf(a) - order.indexOf(b);
       }).map( (error) => {
@@ -94,26 +92,6 @@ export default class EventForm extends React.Component {
     } else {
       return null;
     }
-
-    // let errors = [];
-    // // var order = ["location", "startDateTime", "endDateTime"];
-    //
-    // if (this.state.errors) {
-    //   errors = this.state.errors.map( (error, index) => {
-    //     return (
-    //       <li key={index}>{error}</li>
-    //     );
-    //   });
-    //
-    //   return (
-    //     <div class="alert alert-danger col-sm-10 col-sm-offset-2">
-    //       <ul>{errors}</ul>
-    //     </div>
-    //   );
-    // } else {
-    //   return null;
-    // }
-
   }
 
   render() {

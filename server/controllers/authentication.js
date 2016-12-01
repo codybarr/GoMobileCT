@@ -39,57 +39,6 @@ exports.login = function(req, res, next) {
   });
 }
 
-
-//========================================
-// Registration Route
-//========================================
-exports.register = function(req, res, next) {
-  // Check for registration errors
-  const email = req.body.email;
-  const password = req.body.password;
-
-  // Return error if no email provided
-  if (!email) {
-    return res.status(422).send({ error: 'You must enter an email address.'});
-  }
-
-  // Return error if no password provided
-  if (!password) {
-    return res.status(422).send({ error: 'You must enter a password.' });
-  }
-
-  User.findOne({ email: email }, function(err, existingUser) {
-      if (err) { return next(err); }
-
-      // If user is not unique, return error
-      if (existingUser) {
-        return res.status(422).send({ error: 'That email address is already in use.' });
-      }
-
-      // If email is unique and password was provided, create account
-      let user = new User({
-        email: email,
-        password: password
-      });
-
-      user.save(function(err, user) {
-        if (err) { return next(err); }
-
-        // Subscribe member to Mailchimp list
-        // mailchimp.subscribeToNewsletter(user.email);
-
-        // Respond with JWT if user was created
-
-        let userInfo = setUserInfo(user);
-
-        res.status(201).json({
-          token: 'JWT ' + generateToken(userInfo),
-          user: userInfo
-        });
-      });
-  });
-}
-
 //========================================
 // Authorization Middleware
 //========================================
@@ -101,7 +50,7 @@ exports.roleAuthorization = function(role) {
 
     User.findById(user._id, function(err, foundUser) {
       if (err) {
-        res.status(422).json({ error: 'No user was found.' });
+        res.status(422).json({ errors: 'No user was found.' });
         return next(err);
       }
 
@@ -110,12 +59,36 @@ exports.roleAuthorization = function(role) {
         return next();
       }
 
-      res.status(401).json({ error: 'You are not authorized to view this content.' });
+      res.status(401).json({ errors: 'You are not authorized to view this content.' });
       return next('Unauthorized');
-    })
+    });
   }
 }
 
+
+// Confirm Existing Password check
+exports.confirmOldPassword = function(req, res, next) {
+  const id = req.params.id;
+  const oldPassword = req.body.oldPassword;
+
+  User.findById(id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    user.validPassword(oldPassword, function(err, isMatch) {
+      if (err) {
+        return next(err);
+      }
+      if (isMatch) {
+        return next();
+      }
+
+      res.status(401).json({ errors: ['Old Password is incorrect'] });
+      return next('Incorrect Old Password');
+    });
+  });
+}
 
 /*
 
@@ -200,5 +173,10 @@ exports.verifyToken = function(req, res, next) {
       });
   });
 }
-
 */
+
+//========================================
+// Change Password Route
+//========================================
+
+// exports.changePassword = function()
