@@ -3,3 +3,4 @@ node_modules
 npm-debug.log
 public/client.min.js
 .vscode
+server/config/main.js
