@@ -32,7 +32,9 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 GoMobileCT uses Protractor for all the tests. Make sure it's installed, webdriver is updated and running before running tests:
 
 `npm install -g protractor`
+
 `webdriver-manager update`
+
 `webdriver-manager start`
 
 Then run tests with: `protractor tests/config.js`
