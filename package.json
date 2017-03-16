@@ -1,6 +1,6 @@
 {
   "name": "go-mobile-ct",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "Simple Web App that shows the dates and locations of the mobile unit for Caring Families.",
   "main": "server/index.js",
   "scripts": {
