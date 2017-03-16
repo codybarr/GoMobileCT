@@ -5,6 +5,7 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 
 * clone repo
 * `npm install`
+* Install Gulp globally: `npm install -g gulp-cli`
 
 ## Structure
 
