@@ -1,7 +1,6 @@
 // Based on code at https://www.codementor.io/reactjs/tutorial/integrate-google-maps-api-react-refs
 
 import React from 'react';
-import InfoWindow from './InfoWindow';
 
 const ICON = {
   active: '/images/ic_directions_bus_black_36px_material_accent.svg',
@@ -25,6 +24,7 @@ export default class MapContainer extends React.Component {
     };
 
     this._markers = [];
+    this._infoWindows = [];
   }
 
   componentDidMount() {
@@ -74,10 +74,33 @@ export default class MapContainer extends React.Component {
       icon: ICON.inactive,
       map: this.map
     });
+
+    let schedule = "";
+
+    location.events.forEach( (event) => {
+      schedule += `
+        <div key=${event.id}>
+          <strong>${event.dayOfWeek}</strong> ${event.startTime} - ${event.endTime}
+        </div>
+      `;
+    });
+
+    var infoWindow = new google.maps.InfoWindow({
+      content:`
+        <div>
+          <h3>${location.name}</h3>
+          <p>${location.description}</p>
+          ${schedule}
+        </div>
+      `,
+      maxWidth: 400
+    });
     marker.addListener('click', () => {
       this._setCurrentLocation(location);
       this._updateIcons(marker);
+      this.map.panTo(marker.getPosition());
     });
+    marker['infoWindow'] = infoWindow;
     this._markers.push(marker);
   }
 
@@ -89,27 +112,28 @@ export default class MapContainer extends React.Component {
     this._markers.forEach((currentMarker, index, array) => {
       if (currentMarker === marker) {
         currentMarker.setIcon(ICON.active);
+        currentMarker.infoWindow.open(this.map, currentMarker);
       } else {
         currentMarker.setIcon(ICON.inactive);
+        currentMarker.infoWindow.close();
       }
     });
   }
 
+
+
   render() {
     const style = {
-      height: 400,
-      marginBottom: 20
-    }
+      width: '100%',
+      height: '100%'
+    };
 
     return (
-
-      <map ref="map" style={style}>
-        Loading Map...
-        // <div class="col-md-4">
-        //   <InfoWindow location={this.state.currentLocation} />
-        // </div>
-      </map>
-
+      <div class="map-container" style={style}>
+        <div id="map-canvas" ref="map" style={style}>
+          Loading Map...
+        </div>
+      </div>
     );
   }
 }
