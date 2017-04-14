@@ -54,11 +54,11 @@ function checkLoggedIn(nextState, replace) {
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route component={StaticLayout}>
-      <Route path='/'component={Home}></Route>
+      <Route path='/'component={Home}></Route>>
       <Route path='about' name='about' component={About} />
     </Route>
+    <Route path='locations' name='locations' component={Locations} />
     <Route component={Layout}>
-      <Route path='locations' name='locations' component={Locations} />
       <Route path='calendar' name='calendar' component={Calendar} />
       <Route path='calculator' name='pregnancyCalculator' component={PregnancyCalculator} />
 

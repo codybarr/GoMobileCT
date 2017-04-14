@@ -64,6 +64,13 @@ export default class EventList extends React.Component {
 
   // Generates Event List Items from queried array of events
   _getEvents() {
+
+    let order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+    this.state.events.sort( (a, b) => {
+      return order.indexOf(a.dayOfWeek) - order.indexOf(b.dayOfWeek);
+    });
+
     return this.state.events.map( (event, index) => {
       return (
         <EventListItem
@@ -87,6 +94,7 @@ export default class EventList extends React.Component {
               <tr>
                 <th>#</th>
                 <th>Location</th>
+                <th>Day</th>
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Actions</th>

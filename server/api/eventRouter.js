@@ -54,7 +54,6 @@ eventRouter.get('/events/week/:date', function(req, res) {
 eventRouter.get('/events/current', function(req, res) {
 
   Event.find()
-    .where('endDateTime').gt(moment(Date.now()).format())
     .populate('location', 'id')
     .exec(function(err, events) {
       if (err) {

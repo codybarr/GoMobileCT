@@ -39,3 +39,11 @@ GoMobileCT uses Protractor for all the tests. Make sure it's installed, webdrive
 `webdriver-manager start`
 
 Then run tests with: `protractor tests/config.js`
+
+
+## Tags
+
+Tags marking important changes in the codebase
+
+- *v0.9*
+  - This tag marks a stable point in the codebase prior to changing the way dates are handled (See issue https://github.com/codybarr/GoMobileCT/issues/51). To summarize, events were initially created to mark individual dates/times rather than the same times on a given weekday.

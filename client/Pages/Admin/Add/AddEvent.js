@@ -1,6 +1,5 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import moment from 'moment';
 
 import AuthStore from '../../../stores/AuthStore';
 import * as AuthActions from '../../../actions/AuthActions';
@@ -19,8 +18,8 @@ export default class AddEvent extends React.Component {
           _id: '',
           name: ''
         },
-        startDateTime: moment().format(),
-        endDateTime: moment().add(2, 'hours').format()
+        startTime: '',
+        endTime: ''
       },
       errors: false
     }

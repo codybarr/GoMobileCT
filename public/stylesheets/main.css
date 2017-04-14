@@ -1,5 +1,12 @@
-.calendar table th {
-  text-align: center; }
+.calendar .week-events {
+  display: flex;
+  flex-direction: column; }
+  @media (min-width: 700px) {
+    .calendar .week-events {
+      flex-direction: row; }
+      .calendar .week-events .day {
+        padding: 0 5px;
+        border-right: 2px dotted #ccc; } }
 .centered {
   text-align: center; }
 

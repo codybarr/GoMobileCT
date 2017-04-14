@@ -10,13 +10,17 @@ var eventSchema = new mongoose.Schema({
     ref: 'Location',
     required: 'Location is required'
   },
-  startDateTime: {
-    type: Date,
-    required: 'Start Date / Time is required',
+  dayOfWeek: {
+    type: String,
+    required: 'Day of Week is required',
   },
-  endDateTime: {
-    type: Date,
-    required: 'End Date / Time is required'
+  startTime: {
+    type: String,
+    required: 'Start Time is required',
+  },
+  endTime: {
+    type: String,
+    required: 'End Time is required'
   }
 },
 {

@@ -102,16 +102,14 @@ export default class MapContainer extends React.Component {
     }
 
     return (
-      <div class="row">
-        <div class="col-md-8">
-          <div ref="map" style={style}>
-            Loading Map...
-          </div>
-        </div>
-        <div class="col-md-4">
-          <InfoWindow location={this.state.currentLocation} />
-        </div>
-      </div>
+
+      <map ref="map" style={style}>
+        Loading Map...
+        // <div class="col-md-4">
+        //   <InfoWindow location={this.state.currentLocation} />
+        // </div>
+      </map>
+
     );
   }
 }

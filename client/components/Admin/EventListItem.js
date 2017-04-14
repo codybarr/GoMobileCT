@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import moment from 'moment';
-
 export default class EventListItem extends React.Component {
 
   render() {
@@ -10,13 +8,15 @@ export default class EventListItem extends React.Component {
       whiteSpace: 'nowrap'
     }
     const { index, event } = this.props;
-    const startTime = moment(event.startDateTime).format('MMMM D, YYYY h:mm a');
-    const endTime = moment(event.endDateTime).format('MMMM D, YYYY h:mm a');
+    const dayOfWeek = event.dayOfWeek;
+    const startTime = event.startTime;
+    const endTime = event.endTime;
 
     return (
       <tr>
         <td>{index}</td>
         <td style={noWrap}>{event.location && event.location.name}</td>
+        <td style={noWrap}>{dayOfWeek}</td>
         <td style={noWrap}>{startTime}</td>
         <td style={noWrap}>{endTime}</td>
         <td style={noWrap} class="event-actions">

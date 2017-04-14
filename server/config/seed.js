@@ -4,8 +4,6 @@ var Location = require('../models/location');
 var Event = require('../models/event');
 var User = require('../models/user');
 
-var moment = require('moment');
-
 // removes all Locations and Events
 
 Location.remove({}, function() {
@@ -30,6 +28,14 @@ var locations = [
     description: `The Putnam Public Library serves the needs of the community by providing free access to a diversity of ideas, information and experiences with the goal of promoting the love of reading, the joy of lifelong learning and engagement with the arts, sciences and humanities.`},
 ];
 
+var weekdays = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday'
+];
+
 // Adds locations and then an event for each location (for testing)
 locations.forEach(function(location, index) {
   Location.find({'name': location.name}, function(err, locations) {
@@ -39,8 +45,9 @@ locations.forEach(function(location, index) {
         for (var i = 0; i < 5; i++) {
           Event.create({
             location: newLocation._id,
-            startDateTime: moment(Date.now()).utc().add(i * 12, 'hours').toISOString(),
-            endDateTime: moment(Date.now()).utc().add(i * 12 + 8, 'hours').toISOString()
+            dayOfWeek: weekdays[i],
+            startTime: "9:00 AM",
+            endTime: "5:00 PM"
           }, function(err, newEvent) {
             if (err) {
               console.log(err);

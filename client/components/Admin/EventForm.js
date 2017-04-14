@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import { Link } from 'react-router';
 
@@ -18,19 +17,9 @@ export default class EventForm extends React.Component {
   }
 
   componentDidUpdate() {
-    $('.datepicker').datepicker({
-      orientation: 'bottom auto',
-      autoclose: true,
-      todayBtn: true,
-      todayHighlight: true,
-
-    });
-
     $('.timepicker').timepicker({
       timeFormat: 'h:i A'
     });
-
-    this._setInitialValues();
   }
 
   // Fetch Location Names and Ids
@@ -53,24 +42,22 @@ export default class EventForm extends React.Component {
     });
   }
 
-  _setInitialValues() {
-    const { event } = this.props;
-    // const dateFormat='YYYY-MM-DD\Thh\:mm';
-    const dateFormat='MM/DD/YYYY';
-    const timeFormat='hh:mm A'
-
-    this._location.value = event.location._id;
-    this._startDate.value = moment(event.startDateTime).isValid() ? moment(event.startDateTime).format(dateFormat) : '';
-    this._startTime.value = moment(event.startDateTime).isValid() ? moment(event.startDateTime).format(timeFormat) : '';
-    $('#startDate').datepicker('setDate', moment(event.startDateTime).format(dateFormat));
-
-    this._endDate.value = moment(event.endDateTime).isValid() ? moment(event.endDateTime).format(dateFormat) : '';
-    this._endTime.value = moment(event.endDateTime).isValid() ? moment(event.endDateTime).format(timeFormat) : '';
-    $('#endDate').datepicker('setDate', moment(event.endDateTime).format(dateFormat));
-
-    // this._startDate.value = moment(event.startDateTime).format(dateFormat);
-    // this._endDate.value = moment(event.endDateTime).format(dateFormat);
+  _getWeekdays() {
+    let weekdays = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday'
+    ];
+    return weekdays.map((weekday, index) => {
+      return (
+        <option key={index} value={weekday}>{weekday}</option>
+      )
+    });
   }
+
+
 
   _getErrors() {
 
@@ -97,6 +84,8 @@ export default class EventForm extends React.Component {
   render() {
     const { title } = this.props;
     const locations = this._getLocations();
+    const weekdays = this._getWeekdays();
+
     const errors = this._getErrors();
 
     return (
@@ -123,21 +112,22 @@ export default class EventForm extends React.Component {
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Start Date / Time:</label>
-            <div class="col-sm-5">
-              <input type="text" class="form-control datepicker" id="startDate" ref={(startDate) => this._startDate = startDate}/>
-            </div>
-            <div class="col-sm-5">
-              <input type="text" class="form-control timepicker" id="startTime" ref={(startTime) => this._startTime = startTime}/>
+            <label class="col-sm-2 control-label">Day of Week</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="dayOfWeek" ref={(dayOfWeek) => this._dayOfWeek = dayOfWeek}>
+                <option value=""></option>
+                {weekdays}
+              </select>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">End Date / Time:</label>
-            <div class="col-sm-5">
-              <input type="text" class="form-control datepicker" id="endDate" ref={(endDate) => this._endDate = endDate}/>
+            <label class="col-sm-2 control-label">Start Time:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control timepicker" id="startTime" ref={(startTime) => this._startTime = startTime}/>
             </div>
-            <div class="col-sm-5">
+            <label class="col-sm-2 control-label">End Time:</label>
+            <div class="col-sm-4">
               <input type="text" class="form-control timepicker" id="endTime" ref={(endTime) => this._endTime = endTime}/>
             </div>
           </div>
@@ -156,18 +146,13 @@ export default class EventForm extends React.Component {
   _handleSubmit(event) {
     event.preventDefault();
 
-    const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
-
-    let startDate = moment(this._startDate.value + ' ' + this._startTime.value, dateTimeFormat);
-    // if (!startDate.isValid()) startDate = '';
-
-    let endDate = moment(this._endDate.value + ' ' + this._endTime.value, dateTimeFormat);
-    // if (!endDate.isValid()) endDate = '';
+    // const dateTimeFormat = 'MM/DD/YYYY hh:mm A';
 
     let newEvent = {
       location: this._location.value,
-      startDateTime: startDate.utc().format(),
-      endDateTime: endDate.utc().format()
+      dayOfWeek: this._dayOfWeek.value,
+      startTime: this._startTime.value,
+      endTime: this._endTime.value
     };
 
     this.props.submitMethod(newEvent);
