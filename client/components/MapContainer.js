@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import go from '../helper'
+
 const ICON = {
   active: '/images/ic_directions_bus_black_36px_material_accent.svg',
   inactive: '/images/ic_directions_bus_black_36px.svg'
@@ -24,7 +26,6 @@ export default class MapContainer extends React.Component {
     };
 
     this._markers = [];
-    this._infoWindows = [];
   }
 
   componentDidMount() {
@@ -34,6 +35,12 @@ export default class MapContainer extends React.Component {
       center: { lat: 41.5019391, lng: -73.0370646 },
       zoom: 11,
       scrollwheel: false
+    });
+
+    this.map.addListener('click', (e) => {
+      this._markers.forEach ( (marker) => {
+        marker.infoWindow.close();
+      });
     });
 
     // Repositions the map to fit all of Connecticut
@@ -75,15 +82,20 @@ export default class MapContainer extends React.Component {
       map: this.map
     });
 
-    let schedule = "";
+    let ordered_events = go.sortEvents(location.events);
 
-    location.events.forEach( (event) => {
+    let schedule = "<table class='table'>";
+
+    ordered_events.forEach( (event) => {
       schedule += `
-        <div key=${event.id}>
-          <strong>${event.dayOfWeek}</strong> ${event.startTime} - ${event.endTime}
-        </div>
+        <tr key=${event.id}>
+          <td><strong>${event.dayOfWeek}</strong></td>
+          <td>${event.startTime} - ${event.endTime}</td>
+        </tr>
       `;
     });
+
+    schedule += "</table>";
 
     var infoWindow = new google.maps.InfoWindow({
       content:`
