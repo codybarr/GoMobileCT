@@ -26,6 +26,7 @@
     "moment": "^2.15.1",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
+    "nodemailer": "^4.0.1",
     "passport": "^0.3.2",
     "passport-json": "^1.2.0",
     "passport-jwt": "^2.1.0",

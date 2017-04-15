@@ -4,6 +4,7 @@ const locationRoutes           = require('./api/locationRouter'),
       eventRoutes              = require('./api/eventRouter'),
       authRoutes               = require('./api/authRouter'),
       userRoutes               = require('./api/userRouter'),
+      emailRoutes              = require('./api/emailRouter'),
       express                  = require('express');
 
 // Constants for role types
@@ -30,6 +31,11 @@ module.exports = function(app) {
   // User Routes
   //=========================
   apiRoutes.use(userRoutes);
+
+  //=========================
+  // Email Routes
+  //=========================
+  apiRoutes.use(emailRoutes);
 
   //=========================
   // Auth Routes

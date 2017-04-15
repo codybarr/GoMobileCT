@@ -18,7 +18,7 @@ export default class Locations extends React.Component {
         <div class="container-fluid">
          <div class="row">
            <div class="col-sm-6">
-             <img class="img-responsive" src="/images/client_inside.jpg" alt="" />
+             <img style={{marginBottom: '20px'}} class="img-responsive" src="/images/client_inside.jpg" alt="" />
            </div>
 
            <div class="col-sm-6">

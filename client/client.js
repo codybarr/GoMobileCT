@@ -12,6 +12,7 @@ import Locations from './Pages/Locations';
 import Calendar from './Pages/Calendar';
 import PregnancyCalculator from './Pages/PregnancyCalculator';
 import About from './Pages/About';
+import Contact from './Pages/Contact';
 
 import NotFound404 from './Pages/NotFound404';
 import NotAuthorized401 from './Pages/NotAuthorized401';
@@ -56,6 +57,7 @@ ReactDOM.render(
     <Route component={StaticLayout}>
       <Route path='/'component={Home}></Route>>
       <Route path='about' name='about' component={About} />
+      <Route path='contact' name='contact' component={Contact} />
     </Route>
     <Route path='locations' name='locations' component={Locations} />
     <Route component={Layout}>

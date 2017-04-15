@@ -122,8 +122,8 @@ export default class LocationForm extends React.Component {
             <label for="geolocation" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-8">
               <input type="search" class="form-control" id="geolocation" placeholder="968 Main St. Willimantic, CT" ref={(address) => this._address = address} defaultValue={location.address}/>
-              <input type="hidden" ref={(lat) => this._lat = lat} defaultValue={location.latlng.lat} />
-              <input type="hidden" ref={(lng) => this._lng = lng} defaultValue={location.latlng.lng} />
+              <input type="hidden" id="lat" name="lat" ref={(lat) => this._lat = lat}  />
+              <input type="hidden" id="lng" name="lng" ref={(lng) => this._lng = lng}  />
             </div>
             <div class="col-sm-2">
               <button type="submit" class="btn btn-raised btn-default" onClick={::this._codeAddress}>Search</button>
