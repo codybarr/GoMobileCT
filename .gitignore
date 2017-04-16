@@ -4,3 +4,4 @@ npm-debug.log
 public/client.min.js
 .vscode
 server/config/main.js
+server/config/email.js

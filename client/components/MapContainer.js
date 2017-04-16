@@ -110,7 +110,7 @@ export default class MapContainer extends React.Component {
     marker.addListener('click', () => {
       this._setCurrentLocation(location);
       this._updateIcons(marker);
-      this.map.panTo(marker.getPosition());
+      // this.map.panTo(marker.getPosition());
     });
     marker['infoWindow'] = infoWindow;
     this._markers.push(marker);

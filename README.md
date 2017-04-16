@@ -6,6 +6,7 @@ Simple Web App that shows the dates and locations of the mobile unit for Caring 
 * clone repo
 * `npm install`
 * Install Gulp globally: `npm install -g gulp-cli`
+* Install webpack globally: `npm install -g webpack`
 
 ## Structure
 
@@ -40,6 +41,12 @@ GoMobileCT uses Protractor for all the tests. Make sure it's installed, webdrive
 
 Then run tests with: `protractor tests/config.js`
 
+
+## Compile Assets for Production
+
+* Run `npm run build`
+* Zip `server` folder, `package.json`, and `public` folder.
+* Upload to AWS and check ENVIRONMENT variables
 
 ## Tags
 
