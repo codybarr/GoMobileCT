@@ -36,7 +36,7 @@ export default class Home extends React.Component {
               <i class="fa fa-info-circle fa-4x about" aria-hidden="true"></i>
               <h4><Link to='about'>About Us</Link></h4>
               <p>
-                We are here for you! For over 30 years we have helped thousands of women in northeast CT. We are now expanding out to reach the whole state through our mobile unit. Free pregnancy testing, sonograms, consultations, and education on all your choices.
+                We are here for you! For over 30 years we have helped thousands of women in Northeast CT. We are now expanding out to reach the whole state through our mobile unit. We offer free pregnancy testing, sonograms, consultations, and education on all your choices.
               </p>
             </div>
             <div class="col-sm-4 text-center featured-item">

@@ -75,6 +75,8 @@ nav {
   .parallax {
     color: $primary-color-text;
 
+    h1 { font-size: 45px; }
+
     h1, p.lead {
       text-shadow: 1px 1px 3px black;
     }

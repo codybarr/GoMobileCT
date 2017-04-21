@@ -1,1 +1,94 @@
-.calendar .week-events{display:flex;flex-direction:column}@media (min-width:700px){.calendar .week-events{flex-direction:row}.calendar .week-events .day{padding:0 5px;border-right:2px dotted #ccc}}.centered{text-align:center}.about .row{padding:0 0 20px}.about h2{margin-top:0;margin-bottom:20px}td .btn{margin:0}body,div#app,div#app>div,html{width:100%;height:100%}body{background-color:#fff;padding-top:50px}@media (min-width:1200px){body{padding-top:60px}}body a,body a:focus,body a:link{color:#0d47a1}body a:hover{color:#b3e5fc}@media (min-width:768px){.container{width:auto}}.home .parallax{color:#fff;height:400px;display:flex;align-items:center;justify-content:center}.home .parallax h1,.home .parallax p.lead{text-shadow:1px 1px 3px #000}.home .parallax.outside{background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url("/images/mobile_unit_outside.jpg") no-repeat 50% fixed;background-size:cover}.home .parallax.inside{background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url("/images/mobile_unit_inside.jpg") no-repeat 50% fixed;background-size:cover}.home .parallax .parallax-content{text-align:center}.home .featured-item{padding:20px}.home .featured-item i.mobile{color:#f44336}.home .featured-item i.about{color:#8bc34a}.home .featured-item i.expect{color:#2196f3}footer{background-color:#0288d1;color:#fff}footer .row{padding:20px}footer .footer-box{padding:10px}footer .hline-w{border-bottom:2px solid #fff;margin-bottom:25px}footer a,footer a:focus,footer a:link{color:#0d47a1}footer a:hover{color:#b3e5fc}footer i{padding-right:25px}
+.calendar .week-events {
+  display: flex;
+  flex-direction: column; }
+  @media (min-width: 700px) {
+    .calendar .week-events {
+      flex-direction: row; }
+      .calendar .week-events .day {
+        padding: 0 5px;
+        border-right: 2px dotted #ccc; } }
+.centered {
+  text-align: center; }
+
+.about .row {
+  padding: 0 0 20px 0; }
+
+.about h2 {
+  margin-top: 0;
+  margin-bottom: 20px; }
+
+td .btn {
+  margin: 0; }
+
+html,
+body,
+div#app,
+div#app > div {
+  width: 100%;
+  height: 100%; }
+
+body {
+  background-color: white;
+  /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  padding-top: 50px; }
+  @media (min-width: 1200px) {
+    body {
+      padding-top: 60px; } }
+  body a, body a:link, body a:focus {
+    color: #0D47A1; }
+  body a:hover {
+    color: #B3E5FC; }
+
+@media (min-width: 768px) {
+  .container {
+    width: auto; } }
+
+.home .parallax {
+  color: #FFFFFF;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .home .parallax h1 {
+    font-size: 45px; }
+  .home .parallax h1, .home .parallax p.lead {
+    text-shadow: 1px 1px 3px black; }
+  .home .parallax.outside {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/mobile_unit_outside.jpg") no-repeat center center fixed;
+    background-size: cover; }
+  .home .parallax.inside {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/mobile_unit_inside.jpg") no-repeat center center fixed;
+    background-size: cover; }
+  .home .parallax .parallax-content {
+    text-align: center; }
+
+.home .featured-item {
+  padding: 20px; }
+  .home .featured-item i.mobile {
+    color: #F44336; }
+  .home .featured-item i.about {
+    color: #8BC34A; }
+  .home .featured-item i.expect {
+    color: #2196F3; }
+
+footer {
+  background-color: #0288D1;
+  color: #FFFFFF; }
+  footer .row {
+    padding: 20px; }
+  footer .footer-box {
+    padding: 10px; }
+  footer .hline-w {
+    border-bottom: 2px solid #FFFFFF;
+    margin-bottom: 25px; }
+  footer a, footer a:link, footer a:focus {
+    color: #0D47A1; }
+  footer a:hover {
+    color: #B3E5FC; }
+  footer i {
+    padding-right: 25px; }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZXNoZWV0cy9tYWluLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/
